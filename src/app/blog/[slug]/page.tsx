@@ -101,16 +101,29 @@ function renderContent(content: any) {
               element = <code key={Math.random()} className="bg-gray-800 px-1.5 py-0.5 rounded text-sm text-[#f97316]">{element}</code>;
               break;
             case "link":
-              element = (
+              // Sanitize href to prevent XSS (javascript: protocol)
+              const href = mark.attrs?.href as string;
+              const isSafeUrl = href && (
+                href.startsWith('http://') || 
+                href.startsWith('https://') || 
+                href.startsWith('/') || 
+                href.startsWith('#') ||
+                href.startsWith('mailto:')
+              );
+              element = isSafeUrl ? (
                 <a
                   key={Math.random()}
-                  href={mark.attrs?.href as string}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#f97316] underline hover:text-[#ea580c]"
                 >
                   {element}
                 </a>
+              ) : (
+                <span key={Math.random()} className="text-[#f97316] underline">
+                  {element}
+                </span>
               );
               break;
           }
@@ -182,14 +195,50 @@ function renderContent(content: any) {
       
       case "image":
         const imgSrc = node.attrs?.src as string;
-        // Skip blob URLs (they don't persist)
-        if (!imgSrc || imgSrc.startsWith("blob:")) {
+        // Skip blob URLs and validate image source
+        const isValidImageSrc = imgSrc && (
+          imgSrc.startsWith('https://') || 
+          imgSrc.startsWith('http://') ||
+          imgSrc.startsWith('/')
+        ) && !imgSrc.startsWith('blob:');
+        
+        // Only allow images from trusted domains
+        const trustedDomains = [
+          'ik.imagekit.io',           // ImageKit (your CDN)
+          'img.clerk.com',            // Clerk user images
+          'images.clerk.dev',         // Clerk
+          'avatars.githubusercontent.com', // GitHub
+          'lh3.googleusercontent.com', // Google
+        ];
+        const isTrustedSource = isValidImageSrc && trustedDomains.some(domain => imgSrc.includes(domain));
+        
+        if (!isValidImageSrc) {
           return (
             <figure className="my-8 p-8 bg-gray-800/50 rounded-lg text-center">
               <div className="text-gray-500">Image not available</div>
             </figure>
           );
         }
+        
+        // For untrusted sources, show a warning
+        if (!isTrustedSource) {
+          return (
+            <figure className="my-8">
+              <div className="bg-yellow-900/20 border border-yellow-700/50 rounded-lg p-4 text-center">
+                <p className="text-yellow-400 text-sm mb-2">⚠️ External image</p>
+                <a 
+                  href={imgSrc} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-[#f97316] hover:underline text-sm"
+                >
+                  View image externally →
+                </a>
+              </div>
+            </figure>
+          );
+        }
+        
         return (
           <figure className="my-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}

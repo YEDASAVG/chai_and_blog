@@ -5,6 +5,11 @@ import dbConnect from "@/lib/db";
 import Blog from "@/models/Blog";
 import FeedSearch from "@/components/FeedSearch";
 
+// Helper: Escape regex special characters to prevent ReDoS attacks
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Fetch published blogs with pagination, search, and author info
 async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
   await dbConnect();
@@ -17,10 +22,12 @@ async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
   }
 
   // Add search filter if search query exists (title and author)
+  // Security: Escape regex special characters to prevent injection
   if (search && search.trim()) {
+    const safeSearch = escapeRegex(search.trim()).slice(0, 100); // Limit length too
     query.$or = [
-      { title: { $regex: search, $options: "i" } },
-      { authorName: { $regex: search, $options: "i" } },
+      { title: { $regex: safeSearch, $options: "i" } },
+      { authorName: { $regex: safeSearch, $options: "i" } },
     ];
   }
 

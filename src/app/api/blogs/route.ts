@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import Blog from "@/models/Blog";
+import { apiLimiter, blogCreateLimiter } from "@/lib/ratelimit";
 
 // Helper to generate slug from title
 function generateSlug(title: string): string {
@@ -21,6 +22,12 @@ export async function GET(request: NextRequest) {
     const { userId } = await auth();
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Rate limiting: 10 requests per 10 seconds
+    const { success } = await apiLimiter.limit(userId);
+    if (!success) {
+      return NextResponse.json({ error: "Too many requests. Please slow down." }, { status: 429 });
     }
 
     await dbConnect();
@@ -67,6 +74,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { id, title, content, status } = body;
 
+    // Security: Validate title length
+    if (title && title.length > 200) {
+      return NextResponse.json({ error: "Title too long. Maximum 200 characters." }, { status: 400 });
+    }
+
+    // Security: Validate content size (roughly 500KB limit)
+    const contentSize = JSON.stringify(content || {}).length;
+    if (contentSize > 500000) {
+      return NextResponse.json({ error: "Content too large. Please reduce the blog size." }, { status: 400 });
+    }
+
     // Update existing blog
     if (id) {
       const blog = await Blog.findOne({ _id: id, authorId: userId });
@@ -101,6 +119,15 @@ export async function POST(request: NextRequest) {
           status: blog.status,
         },
       });
+    }
+
+    // Rate limit new blog creation (10 per hour)
+    const { success: canCreate } = await blogCreateLimiter.limit(userId);
+    if (!canCreate) {
+      return NextResponse.json(
+        { error: "You've created too many blogs recently. Please wait before creating more." },
+        { status: 429 }
+      );
     }
 
     // Create new blog
