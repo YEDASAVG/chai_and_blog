@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ☕ ChaiAndBlog
 
-## Getting Started
+A dead-simple, clean blogging platform for cohort students. Write → Publish → Copy Link → Submit to cohort. That's it.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-16.1.3-black?logo=next.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb)
+![Clerk](https://img.shields.io/badge/Auth-Clerk-purple?logo=clerk)
+![Tiptap](https://img.shields.io/badge/Editor-Tiptap-blue)
 
+## ✨ Features
+
+- **Medium-like Editor** - Beautiful writing experience with Tiptap
+- **One-click Publish** - Instant publishing, no approval needed
+- **Copy Link** - Share your blog anywhere
+- **Community Feed** - Browse all published blogs with live search
+- **Auto-save** - Never lose your work
+- **Dark Theme** - Easy on the eyes
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Framework** | Next.js 16.1.3 (Turbopack) |
+| **Editor** | Tiptap 3.15 |
+| **Database** | MongoDB Atlas |
+| **Auth** | Clerk (GitHub & Google OAuth) |
+| **Images** | ImageKit |
+| **Styling** | Tailwind CSS + shadcn/ui |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB Atlas account
+- Clerk account
+- ImageKit account
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/chai_and_blogs.git
+cd chai_and_blogs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Add your credentials to `.env.local`:
+```env
+# MongoDB
+MONGODB_URI=your_mongodb_uri
 
-## Learn More
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
 
-To learn more about Next.js, take a look at the following resources:
+# ImageKit
+NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=your_imagekit_endpoint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Run the development server
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── (dashboard)/     # Dashboard, Feed, Profile pages
+│   ├── api/             # API routes
+│   ├── blog/[slug]/     # Public blog page
+│   ├── edit/[id]/       # Edit blog page
+│   ├── sign-in/         # Custom sign-in page
+│   ├── sign-up/         # Custom sign-up page
+│   └── write/           # New blog editor
+├── components/          # Reusable components
+├── lib/                 # Utilities & database connection
+└── models/              # MongoDB models
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 User Flow
+
+1. Sign in with GitHub or Google
+2. Click "Write" to create a new blog
+3. Write your content with the rich text editor
+4. Click "Publish" when ready
+5. Copy the blog link and share it
+
+## 📝 License
+
+MIT
+
+---
+
+Built with ☕ by [ChaiCode](https://chaicode.com)
