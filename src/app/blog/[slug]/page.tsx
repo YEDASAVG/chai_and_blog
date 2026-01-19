@@ -4,6 +4,7 @@ import Image from "next/image";
 import { clerkClient } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import Blog from "@/models/Blog";
+import User from "@/models/User";
 import CopyLinkButton from "@/components/CopyLinkButton";
 
 // Generate static params for published blogs (optional, for static generation)
@@ -30,6 +31,19 @@ async function getBlog(slug: string) {
   // If authorName or authorImage is not set, fetch from Clerk
   let authorName = blog.authorName;
   let authorImage = blog.authorImage;
+  let authorUsername = blog.authorUsername;
+  
+  // First try to get username from our User model
+  if (!authorUsername && blog.authorId) {
+    try {
+      const dbUser = await User.findOne({ clerkId: blog.authorId }).lean();
+      if (dbUser) {
+        authorUsername = dbUser.username;
+      }
+    } catch (error) {
+      console.error("Failed to fetch user from DB:", error);
+    }
+  }
   
   if ((!authorName || !authorImage) && blog.authorId) {
     try {
@@ -39,9 +53,10 @@ async function getBlog(slug: string) {
         ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
         : user.username || "Anonymous");
       authorImage = authorImage || user.imageUrl || undefined;
+      authorUsername = authorUsername || user.username || undefined;
       
       // Update the blog with author info for future requests
-      await Blog.updateOne({ _id: blog._id }, { authorName, authorImage });
+      await Blog.updateOne({ _id: blog._id }, { authorName, authorImage, authorUsername });
     } catch (error) {
       console.error("Failed to fetch author info:", error);
       authorName = authorName || "Anonymous";
@@ -56,6 +71,7 @@ async function getBlog(slug: string) {
     authorId: blog.authorId,
     authorName: authorName || "Anonymous",
     authorImage: authorImage || null,
+    authorUsername: authorUsername || null,
     publishedAt: blog.publishedAt?.toISOString() || blog.createdAt.toISOString(),
   };
 }
@@ -333,25 +349,51 @@ export default async function BlogPage({
         {/* Meta info */}
         <div className="flex items-center gap-4 text-gray-400 mb-12 pb-8 border-b border-gray-800">
           <div className="flex items-center gap-3">
-            {blog.authorImage ? (
-              <Image
-                src={blog.authorImage}
-                alt={blog.authorName}
-                width={40}
-                height={40}
-                className="w-10 h-10 rounded-full object-cover"
-              />
+            {blog.authorUsername ? (
+              <Link href={`/user/${blog.authorUsername}`} className="flex items-center gap-3 group">
+                {blog.authorImage ? (
+                  <Image
+                    src={blog.authorImage}
+                    alt={blog.authorName}
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full object-cover group-hover:ring-2 ring-[#f97316] transition-all"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-white font-medium group-hover:ring-2 ring-white transition-all">
+                    {blog.authorName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <div>
+                  <div className="text-white font-medium group-hover:text-[#f97316] transition-colors">{blog.authorName}</div>
+                  <div className="text-sm">
+                    {publishDate} · {readTime} min read
+                  </div>
+                </div>
+              </Link>
             ) : (
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-white font-medium">
-                {blog.authorName.charAt(0).toUpperCase()}
-              </div>
+              <>
+                {blog.authorImage ? (
+                  <Image
+                    src={blog.authorImage}
+                    alt={blog.authorName}
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-white font-medium">
+                    {blog.authorName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <div>
+                  <div className="text-white font-medium">{blog.authorName}</div>
+                  <div className="text-sm">
+                    {publishDate} · {readTime} min read
+                  </div>
+                </div>
+              </>
             )}
-            <div>
-              <div className="text-white font-medium">{blog.authorName}</div>
-              <div className="text-sm">
-                {publishDate} · {readTime} min read
-              </div>
-            </div>
           </div>
         </div>
         
@@ -367,7 +409,14 @@ export default async function BlogPage({
         <div className="mt-16 pt-8 border-t border-gray-800">
           <div className="flex items-center justify-between">
             <div className="text-gray-500 text-sm">
-              Written by <span className="text-white">{blog.authorName}</span>
+              Written by{" "}
+              {blog.authorUsername ? (
+                <Link href={`/user/${blog.authorUsername}`} className="text-white hover:text-[#f97316] transition-colors">
+                  {blog.authorName}
+                </Link>
+              ) : (
+                <span className="text-white">{blog.authorName}</span>
+              )}
             </div>
             <CopyLinkButton slug={blog.slug} />
           </div>

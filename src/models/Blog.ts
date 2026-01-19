@@ -4,9 +4,12 @@ export interface IBlog extends Document {
   authorId: string;
   authorName?: string;
   authorImage?: string;
+  authorUsername?: string;
   title: string;
   slug: string;
   content: object; // Tiptap JSON content
+  description?: string; // SEO description
+  tags?: string[]; // SEO tags
   coverImage?: string;
   status: "draft" | "published";
   publishedAt?: Date;
@@ -27,6 +30,9 @@ const BlogSchema = new Schema<IBlog>(
     authorImage: {
       type: String,
     },
+    authorUsername: {
+      type: String,
+    },
     title: {
       type: String,
       required: true,
@@ -40,6 +46,14 @@ const BlogSchema = new Schema<IBlog>(
     content: {
       type: Schema.Types.Mixed,
       default: {},
+    },
+    description: {
+      type: String,
+      maxlength: 300,
+    },
+    tags: {
+      type: [String],
+      default: [],
     },
     coverImage: {
       type: String,

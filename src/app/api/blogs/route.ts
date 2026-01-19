@@ -72,11 +72,21 @@ export async function POST(request: NextRequest) {
     await dbConnect();
 
     const body = await request.json();
-    const { id, title, content, status } = body;
+    const { id, title, content, status, description, tags } = body;
 
     // Security: Validate title length
     if (title && title.length > 200) {
       return NextResponse.json({ error: "Title too long. Maximum 200 characters." }, { status: 400 });
+    }
+
+    // Security: Validate description length
+    if (description && description.length > 300) {
+      return NextResponse.json({ error: "Description too long. Maximum 300 characters." }, { status: 400 });
+    }
+
+    // Security: Validate tags
+    if (tags && (tags.length > 5 || tags.some((t: string) => t.length > 30))) {
+      return NextResponse.json({ error: "Maximum 5 tags allowed, each up to 30 characters." }, { status: 400 });
     }
 
     // Security: Validate content size (roughly 500KB limit)
@@ -96,6 +106,8 @@ export async function POST(request: NextRequest) {
       blog.content = content || blog.content;
       blog.authorName = authorName;
       blog.authorImage = authorImage;
+      if (description !== undefined) blog.description = description;
+      if (tags !== undefined) blog.tags = tags;
 
       // If publishing for the first time
       if (status === "published" && blog.status !== "published") {
@@ -141,6 +153,8 @@ export async function POST(request: NextRequest) {
       title: title || "Untitled",
       slug,
       content: content || { type: "doc", content: [] },
+      description: description || "",
+      tags: tags || [],
       status: status || "draft",
       ...(status === "published" && { publishedAt: new Date() }),
     });

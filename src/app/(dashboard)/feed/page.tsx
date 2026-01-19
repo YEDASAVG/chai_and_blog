@@ -3,6 +3,7 @@ import Image from "next/image";
 import { clerkClient } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import Blog from "@/models/Blog";
+import User from "@/models/User";
 import FeedSearch from "@/components/FeedSearch";
 
 // Helper: Escape regex special characters to prevent ReDoS attacks
@@ -40,31 +41,53 @@ async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
   const items = hasMore ? blogs.slice(0, limit) : blogs;
   const nextCursor = hasMore ? items[items.length - 1]._id?.toString() : null;
 
-  // Fetch author info from Clerk for blogs missing authorName or authorImage
-  const clerk = await clerkClient();
+  // Fetch author info for blogs - prefer DB over Clerk API
   const blogsWithAuthors = await Promise.all(
     items.map(async (blog) => {
-      if (!blog.authorName || !blog.authorImage) {
+      let authorUsername = blog.authorUsername;
+      let authorName = blog.authorName;
+      let authorImage = blog.authorImage;
+      
+      // Try to get info from our User model first (faster and more reliable)
+      if (!authorUsername || !authorName || !authorImage) {
         try {
-          const user = await clerk.users.getUser(blog.authorId);
-          const authorName = user.firstName 
-            ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
-            : user.username || "Anonymous";
-          const authorImage = user.imageUrl || null;
-          
-          // Update the blog in DB for future requests
-          await Blog.updateOne(
-            { _id: blog._id },
-            { authorName, authorImage }
-          );
-          
-          return { ...blog, authorName, authorImage };
+          const dbUser = await User.findOne({ clerkId: blog.authorId }).lean();
+          if (dbUser) {
+            authorUsername = authorUsername || dbUser.username;
+            authorName = authorName || dbUser.name;
+            authorImage = authorImage || dbUser.avatar;
+          }
         } catch (error) {
-          console.error("Failed to fetch author:", error);
-          return blog;
+          console.error("Failed to fetch user from DB:", error);
         }
       }
-      return blog;
+      
+      // Only call Clerk if we still don't have author info and it's needed
+      if (!authorName) {
+        try {
+          const clerk = await clerkClient();
+          const user = await clerk.users.getUser(blog.authorId);
+          authorName = user.firstName 
+            ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
+            : user.username || "Anonymous";
+          authorImage = authorImage || user.imageUrl || null;
+          authorUsername = authorUsername || user.username || null;
+        } catch (error) {
+          // User might not exist in Clerk anymore - use fallback
+          console.error("Failed to fetch author from Clerk:", error);
+          authorName = "Anonymous";
+        }
+      }
+      
+      // Update the blog in DB for future requests if any field was missing
+      if (authorName !== blog.authorName || authorImage !== blog.authorImage || authorUsername !== blog.authorUsername) {
+        await Blog.updateOne(
+          { _id: blog._id },
+          { authorName, authorImage, authorUsername }
+        ).catch(() => {}); // Ignore update errors
+      }
+      
+      return { ...blog, authorName, authorImage, authorUsername };
     })
   );
 
@@ -131,37 +154,57 @@ export default async function FeedPage({
           {blogs.map((blog) => (
             <article
               key={blog._id?.toString()}
-              className="bg-gray-800/30 border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors group"
+              className="bg-gray-800/30 border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors"
             >
-              <Link href={`/blog/${blog.slug}`}>
-                {/* Author info */}
-                <div className="flex items-center gap-3 mb-4">
-                  {blog.authorImage ? (
-                    <Image
-                      src={blog.authorImage}
-                      alt={blog.authorName || "Author"}
-                      width={40}
-                      height={40}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-sm font-medium">
-                      {blog.authorName?.[0]?.toUpperCase() || "A"}
-                    </div>
-                  )}
-                  <div>
+              {/* Author info - Clickable */}
+              <div className="flex items-center gap-3 mb-4">
+                {blog.authorUsername ? (
+                  <Link href={`/user/${blog.authorUsername}`} className="flex items-center gap-3 group">
+                    {blog.authorImage ? (
+                      <Image
+                        src={blog.authorImage}
+                        alt={blog.authorName || "Author"}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover group-hover:ring-2 ring-[#f97316] transition-all"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-sm font-medium group-hover:ring-2 ring-white transition-all">
+                        {blog.authorName?.[0]?.toUpperCase() || "A"}
+                      </div>
+                    )}
+                    <span className="font-medium group-hover:text-[#f97316] transition-colors">{blog.authorName || "Anonymous"}</span>
+                  </Link>
+                ) : (
+                  <>
+                    {blog.authorImage ? (
+                      <Image
+                        src={blog.authorImage}
+                        alt={blog.authorName || "Author"}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-sm font-medium">
+                        {blog.authorName?.[0]?.toUpperCase() || "A"}
+                      </div>
+                    )}
                     <span className="font-medium">{blog.authorName || "Anonymous"}</span>
-                    <span className="text-gray-500 mx-2">·</span>
-                    <span className="text-gray-500">
-                      {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
-                  </div>
-                </div>
+                  </>
+                )}
+                <span className="text-gray-500">·</span>
+                <span className="text-gray-500">
+                  {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+              </div>
 
+              {/* Blog content - Links to blog */}
+              <Link href={`/blog/${blog.slug}`} className="block group">
                 {/* Title */}
                 <h2
                   className="text-xl font-bold mb-2 group-hover:text-[#f97316] transition-colors line-clamp-2"

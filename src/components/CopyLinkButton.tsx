@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "./Toast";
 
 interface CopyLinkButtonProps {
   slug: string;
@@ -8,11 +9,13 @@ interface CopyLinkButtonProps {
 
 export default function CopyLinkButton({ slug }: CopyLinkButtonProps) {
   const [copied, setCopied] = useState(false);
+  const { showToast } = useToast();
 
   const handleCopy = async () => {
     const url = `${window.location.origin}/blog/${slug}`;
     await navigator.clipboard.writeText(url);
     setCopied(true);
+    showToast("Link copied to clipboard!", "success");
     setTimeout(() => setCopied(false), 2000);
   };
 

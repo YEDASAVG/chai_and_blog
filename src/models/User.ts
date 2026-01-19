@@ -6,6 +6,10 @@ export interface IUser extends Document {
   name: string;
   username: string;
   avatar?: string;
+  bio?: string;
+  github?: string;
+  linkedin?: string;
+  twitter?: string;
   createdAt: Date;
 }
 
@@ -31,6 +35,19 @@ const UserSchema = new Schema<IUser>(
       unique: true,
     },
     avatar: {
+      type: String,
+    },
+    bio: {
+      type: String,
+      maxlength: 300,
+    },
+    github: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    twitter: {
       type: String,
     },
   },

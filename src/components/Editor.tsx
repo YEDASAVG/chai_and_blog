@@ -9,9 +9,11 @@ import Image from "@tiptap/extension-image";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import CharacterCount from "@tiptap/extension-character-count";
 import Youtube from "@tiptap/extension-youtube";
+import Typography from "@tiptap/extension-typography";
 import { common, createLowlight } from "lowlight";
 import { useCallback, useState, useEffect, useRef } from "react";
 import SectionSeparator from "./extensions/SectionSeparator";
+import { useToast } from "./Toast";
 
 const lowlight = createLowlight(common);
 
@@ -26,6 +28,7 @@ export default function Editor({
   onUpdate,
   editable = true,
 }: EditorProps) {
+  const { showToast } = useToast();
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [plusMenuPos, setPlusMenuPos] = useState({ top: 0, left: 0 });
   const [showBubbleMenu, setShowBubbleMenu] = useState(false);
@@ -45,6 +48,10 @@ export default function Editor({
     extensions: [
       StarterKit.configure({
         codeBlock: false,
+        // Enable markdown-style input rules
+        heading: {
+          levels: [1, 2, 3],
+        },
       }),
       Placeholder.configure({
         placeholder: "Tell your story...",
@@ -77,6 +84,8 @@ export default function Editor({
         },
       }),
       SectionSeparator,
+      // Typography extension for smart quotes and symbols
+      Typography,
     ],
     content: content || {
       type: "doc",
@@ -164,6 +173,21 @@ export default function Editor({
     input.onchange = async (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file && editor) {
+        // Client-side validation before upload
+        const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB (Vercel limit is ~4.5MB)
+        const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+        if (!ALLOWED_TYPES.includes(file.type)) {
+          showToast("Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.", "error");
+          return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+          const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+          showToast(`Image is too large (${sizeMB}MB). Please use an image smaller than 4MB.`, "error");
+          return;
+        }
+
         setIsUploading(true);
         setShowPlusMenu(false);
         setPlusDropdownOpen(false);
@@ -179,7 +203,8 @@ export default function Editor({
           });
 
           if (!response.ok) {
-            throw new Error("Upload failed");
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || "Upload failed");
           }
 
           const data = await response.json();
@@ -188,14 +213,14 @@ export default function Editor({
           editor.chain().focus().setImage({ src: data.url }).run();
         } catch (error) {
           console.error("Image upload failed:", error);
-          alert("Failed to upload image. Please try again.");
+          showToast(error instanceof Error ? error.message : "Failed to upload image. Please try again.", "error");
         } finally {
           setIsUploading(false);
         }
       }
     };
     input.click();
-  }, [editor]);
+  }, [editor, showToast]);
 
   // Link handler - show custom input
   const openLinkInput = useCallback(() => {
@@ -271,13 +296,13 @@ export default function Editor({
         height: 360,
       });
     } else {
-      alert("Please enter a valid YouTube URL");
+      showToast("Please enter a valid YouTube URL", "error");
       return;
     }
     
     setShowVideoInput(false);
     setVideoUrl("");
-  }, [editor, videoUrl]);
+  }, [editor, videoUrl, showToast]);
 
   // Handle video input key events
   const handleVideoKeyDown = useCallback((e: React.KeyboardEvent) => {
