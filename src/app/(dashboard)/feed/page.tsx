@@ -70,8 +70,8 @@ async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
           authorName = user.firstName 
             ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
             : user.username || "Anonymous";
-          authorImage = authorImage || user.imageUrl || null;
-          authorUsername = authorUsername || user.username || null;
+          authorImage = authorImage || user.imageUrl || undefined;
+          authorUsername = authorUsername || user.username || undefined;
         } catch (error) {
           // User might not exist in Clerk anymore - use fallback
           console.error("Failed to fetch author from Clerk:", error);
