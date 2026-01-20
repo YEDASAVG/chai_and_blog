@@ -7,6 +7,9 @@ import Blog from "@/models/Blog";
 import User from "@/models/User";
 import CopyLinkButton from "@/components/CopyLinkButton";
 
+// Enable ISR - revalidate every 60 seconds for fresh content
+export const revalidate = 60;
+
 // Generate static params for published blogs (optional, for static generation)
 export async function generateStaticParams() {
   await dbConnect();
@@ -322,14 +325,17 @@ export default async function BlogPage({
       {/* Header */}
       <header className="border-b border-gray-800 sticky top-0 bg-[#0a0a0a]/80 backdrop-blur-sm z-10">
         <div className="max-w-[1000px] mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/feed"
-            className="text-gray-400 hover:text-white flex items-center gap-2 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span className="text-sm">Back to Feed</span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <Image 
+              src="/logo.png" 
+              alt="ChaiAndBlog" 
+              width={32} 
+              height={32} 
+              className="w-8 h-8 group-hover:scale-110 transition-transform" 
+            />
+            <span className="text-xl font-bold font-[family-name:var(--font-brand)] tracking-tight">
+              Chai<span className="text-[#f97316]">_And_</span>Blog
+            </span>
           </Link>
           
           <CopyLinkButton slug={blog.slug} />

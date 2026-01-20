@@ -6,17 +6,46 @@ import dbConnect from "@/lib/db";
 import Blog from "@/models/Blog";
 import CopyLinkButton from "@/components/CopyLinkButton";
 
-// Fetch featured blogs (latest published blogs from the community)
+// Fetch featured blogs - user's 2 latest + 1 from community
 async function getFeaturedBlogs(currentUserId: string) {
-  const blogs = await Blog.find({ 
+  // Get user's latest 2 published blogs
+  const userBlogs = await Blog.find({ 
     status: "published",
-    authorId: { $ne: currentUserId } // Exclude current user's blogs
+    authorId: currentUserId
   })
     .sort({ publishedAt: -1 })
-    .limit(3)
-    .select("title slug authorName authorImage publishedAt")
+    .limit(2)
+    .select("title slug authorName authorImage publishedAt content")
     .lean();
-  return blogs;
+
+  // Get 1 community blog (or more if user has fewer than 2)
+  const communityLimit = 3 - userBlogs.length;
+  const communityBlogs = communityLimit > 0 ? await Blog.find({ 
+    status: "published",
+    authorId: { $ne: currentUserId }
+  })
+    .sort({ publishedAt: -1 })
+    .limit(communityLimit)
+    .select("title slug authorName authorImage publishedAt content")
+    .lean() : [];
+
+  // User's blogs first, then community
+  return [...userBlogs, ...communityBlogs];
+}
+
+// Extract preview text from Tiptap content
+function getPreviewText(content: { content?: Array<{ type: string; content?: Array<{ text?: string }> }> }): string {
+  if (!content || !content.content) return "";
+  let text = "";
+  for (const node of content.content) {
+    if (node.type === "paragraph" && node.content) {
+      for (const child of node.content) {
+        if (child.text) text += child.text + " ";
+      }
+    }
+    if (text.length > 100) break;
+  }
+  return text.trim().slice(0, 100) || "Read more...";
 }
 
 export default async function DashboardPage() {
@@ -57,34 +86,49 @@ export default async function DashboardPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {featuredBlogs.map((blog) => (
+            {featuredBlogs.map((blog, index) => (
               <Link
                 key={blog._id?.toString()}
                 href={`/blog/${blog.slug}`}
-                className="group"
+                className="group relative bg-gray-800/40 border border-gray-700/50 rounded-xl overflow-hidden hover:border-[#f97316]/50 transition-all hover:shadow-lg hover:shadow-[#f97316]/5"
               >
-                <div className="aspect-[16/10] bg-gradient-to-br from-[#f97316]/20 to-purple-500/20 rounded-lg mb-3 overflow-hidden flex items-center justify-center">
-                  {blog.authorImage ? (
-                    <Image
-                      src={blog.authorImage}
-                      alt={blog.authorName || "Author"}
-                      width={80}
-                      height={80}
-                      className="w-20 h-20 rounded-full object-cover border-2 border-[#f97316]/30"
-                    />
-                  ) : (
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-2xl font-bold">
-                      {blog.authorName?.[0]?.toUpperCase() || "A"}
-                    </div>
-                  )}
+                {/* Content preview area */}
+                <div className="p-5 pb-16">
+                  <h3 
+                    className="font-semibold text-lg group-hover:text-[#f97316] transition-colors line-clamp-2 mb-2" 
+                    style={{ fontFamily: "var(--font-serif), Georgia, Cambria, serif" }}
+                  >
+                    {blog.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 line-clamp-2">
+                    {getPreviewText(blog.content)}
+                  </p>
                 </div>
-                <h3 
-                  className="font-medium group-hover:text-[#f97316] transition-colors line-clamp-2" 
-                  style={{ fontFamily: "var(--font-serif), Georgia, Cambria, serif" }}
-                >
-                  {blog.title}
-                </h3>
-                <p className="text-sm text-gray-500 mt-1">by {blog.authorName || "Anonymous"}</p>
+                
+                {/* Author footer */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-900/90 to-transparent">
+                  <div className="flex items-center gap-2">
+                    {blog.authorImage ? (
+                      <Image
+                        src={blog.authorImage}
+                        alt={blog.authorName || "Author"}
+                        width={24}
+                        height={24}
+                        className="w-6 h-6 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#f97316] to-[#ea580c] flex items-center justify-center text-xs font-bold">
+                        {blog.authorName?.[0]?.toUpperCase() || "A"}
+                      </div>
+                    )}
+                    <span className="text-sm text-gray-400">{blog.authorName || "Anonymous"}</span>
+                    {index < 2 && (
+                      <span className="ml-auto text-xs px-2 py-0.5 bg-[#f97316]/20 text-[#f97316] rounded-full">
+                        Your blog
+                      </span>
+                    )}
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
