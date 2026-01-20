@@ -92,11 +92,43 @@ export default function WritePage() {
         }),
       });
 
+      const data = await response.json();
+
+      // If blog not found (stale ID), clear the ID and retry as a new blog
+      if (response.status === 404 && blogId) {
+        setBlogId(null);
+        localStorage.removeItem("blog-draft");
+        // Retry without the stale ID
+        const retryResponse = await fetch("/api/blogs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: title || "Untitled",
+            content: contentRef.current,
+            description,
+            tags,
+            status,
+          }),
+        });
+
+        if (!retryResponse.ok) {
+          throw new Error("Failed to save");
+        }
+
+        const retryData = await retryResponse.json();
+        if (retryData.blog?.id) {
+          setBlogId(retryData.blog.id);
+          const draft = { title, content: contentRef.current, description, tags, blogId: retryData.blog.id };
+          localStorage.setItem("blog-draft", JSON.stringify(draft));
+        }
+        setLastSaved(new Date());
+        setSaveStatus("saved");
+        return retryData;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to save");
       }
-
-      const data = await response.json();
       
       // Store the blog ID for future saves
       if (data.blog?.id) {
