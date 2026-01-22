@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && npm run copy-translations",
+    "copy-translations": "mkdir -p public/translations && for file in .next/{ar,de,es,fr,he,hi,id,it,ja,ko,nl,pl,pt,ru,sv,th,tr,uk,vi,zh}.json; do [ -f \"$file\" ] && cp \"$file\" public/translations/; done",
     "start": "next start",
     "lint": "eslint"
   },
