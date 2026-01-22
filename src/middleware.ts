@@ -8,6 +8,7 @@ const isPublicRoute = createRouteMatcher([
   "/sso-callback(.*)",
   "/blog/(.*)", // Public blog pages
   "/feed",
+  "/translations(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
