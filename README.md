@@ -80,8 +80,8 @@ export default async function () {
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/chai_and_blogs.git
-cd chai_and_blogs
+git clone https://github.com/YEDASAVG/chai_and_blog.git
+cd chai_and_blog
 ```
 
 2. Install dependencies
