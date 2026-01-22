@@ -1,5 +1,5 @@
 {
-  "name": "chai_and_blogs",
+  "name": "multilingo-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.36.8",
+    "@lingo.dev/compiler": "^0.1.9",
     "@tiptap/extension-bubble-menu": "^3.15.3",
     "@tiptap/extension-character-count": "^3.15.3",
     "@tiptap/extension-code-block-lowlight": "^3.15.3",

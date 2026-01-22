@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface DashboardSidebarProps {
   userName?: string;
@@ -35,6 +36,7 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -43,7 +45,7 @@ export default function DashboardSidebar({
               d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
             />
           </svg>
-          Dashboard
+          <span>Dashboard</span>
         </Link>
         <Link
           href="/write"
@@ -54,6 +56,7 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -62,7 +65,7 @@ export default function DashboardSidebar({
               d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
             />
           </svg>
-          Write
+          <span>Write</span>
         </Link>
         <Link
           href="/feed"
@@ -77,6 +80,7 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -85,7 +89,7 @@ export default function DashboardSidebar({
               d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
             />
           </svg>
-          Feed
+          <span>Feed</span>
         </Link>
         <Link
           href="/profile"
@@ -100,6 +104,7 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -108,7 +113,7 @@ export default function DashboardSidebar({
               d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
             />
           </svg>
-          Profile
+          <span>Profile</span>
         </Link>
       </nav>
 
@@ -129,6 +134,12 @@ export default function DashboardSidebar({
             <span className="text-white font-semibold">{totalCount}</span>
           </div>
         </div>
+      </div>
+
+      {/* Language Switcher */}
+      <div className="mt-4 p-4 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-800">
+        <h3 className="text-sm font-medium text-gray-400 mb-3">Language</h3>
+        <LanguageSwitcher />
       </div>
     </aside>
   );

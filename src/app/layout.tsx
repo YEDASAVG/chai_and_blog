@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4, Lora, Space_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { LingoProvider } from "@lingo.dev/compiler/react";
 import { ToastProvider } from "@/components/Toast";
 import "./globals.css";
 
@@ -38,6 +39,9 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "ChaiAndBlog - Write, Publish, Share",
   description: "A dead-simple blogging platform for cohort students",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -46,17 +50,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} ${lora.variable} ${spaceGrotesk.variable} antialiased`}
-          suppressHydrationWarning
-        >
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} ${lora.variable} ${spaceGrotesk.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <LingoProvider>
+          <ClerkProvider>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </ClerkProvider>
+        </LingoProvider>
+      </body>
+    </html>
   );
 }

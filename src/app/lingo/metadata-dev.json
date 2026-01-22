@@ -1,0 +1,501 @@
+{
+  "entries": {
+    "23f799fc42b6": {
+      "type": "metadata",
+      "sourceText": "ChaiAndBlog - Write, Publish, Share",
+      "context": {
+        "fieldPath": "title",
+        "filePath": "layout.tsx"
+      },
+      "hash": "23f799fc42b6",
+      "location": {
+        "filePath": "layout.tsx",
+        "line": 40,
+        "column": 9
+      }
+    },
+    "ce1fdba1eb39": {
+      "type": "metadata",
+      "sourceText": "A dead-simple blogging platform for cohort students",
+      "context": {
+        "fieldPath": "description",
+        "filePath": "layout.tsx"
+      },
+      "hash": "ce1fdba1eb39",
+      "location": {
+        "filePath": "layout.tsx",
+        "line": 41,
+        "column": 15
+      }
+    },
+    "8d1d253d1b88": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "8d1d253d1b88",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 35,
+        "column": 12
+      }
+    },
+    "ee46070e0f9b": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "ee46070e0f9b",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 36,
+        "column": 12
+      }
+    },
+    "01eacb517124": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Write",
+      "context": {
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "01eacb517124",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 41,
+        "column": 12
+      }
+    },
+    "66ae1f9ea301": {
+      "type": "content",
+      "sourceText": "Welcome back, {expression0} 👋",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "66ae1f9ea301",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 71,
+        "column": 8
+      }
+    },
+    "751cfde01486": {
+      "type": "content",
+      "sourceText": "Ready to share your knowledge with the community?",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "751cfde01486",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 74,
+        "column": 8
+      }
+    },
+    "c82a889899ac": {
+      "type": "content",
+      "sourceText": "Featured Blogs",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "c82a889899ac",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 83,
+        "column": 12
+      }
+    },
+    "f631cd6004f5": {
+      "type": "content",
+      "sourceText": "View all →",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "f631cd6004f5",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 84,
+        "column": 12
+      }
+    },
+    "4ed7ad41126a": {
+      "type": "content",
+      "sourceText": "Your Blogs",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "4ed7ad41126a",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 140,
+        "column": 8
+      }
+    },
+    "2a22c1e4e651": {
+      "type": "content",
+      "sourceText": "No blogs yet",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "2a22c1e4e651",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 161,
+        "column": 10
+      }
+    },
+    "80a14358e186": {
+      "type": "content",
+      "sourceText": "Start writing your first blog and share it with the cohort!",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "80a14358e186",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 162,
+        "column": 10
+      }
+    },
+    "91216731e6dc": {
+      "type": "content",
+      "sourceText": "Write Your First Blog",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "91216731e6dc",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 165,
+        "column": 10
+      }
+    },
+    "0a6d3d8f9221": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Profile",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "0a6d3d8f9221",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 110,
+        "column": 12
+      }
+    },
+    "fb526eeb5e7e": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Dashboard",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "fb526eeb5e7e",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 122,
+        "column": 12
+      }
+    },
+    "d3b1cc2fd2d0": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Sign out",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "d3b1cc2fd2d0",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 138,
+        "column": 12
+      }
+    },
+    "40e22f1d36e6": {
+      "type": "content",
+      "sourceText": "Dashboard",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "40e22f1d36e6",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 48,
+        "column": 10
+      }
+    },
+    "7b571ed04bc4": {
+      "type": "content",
+      "sourceText": "Write",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "7b571ed04bc4",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 68,
+        "column": 10
+      }
+    },
+    "9e9807660939": {
+      "type": "content",
+      "sourceText": "Feed",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "9e9807660939",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 92,
+        "column": 10
+      }
+    },
+    "235334a4b9a0": {
+      "type": "content",
+      "sourceText": "Profile",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "235334a4b9a0",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 116,
+        "column": 10
+      }
+    },
+    "7cb6ca6af24d": {
+      "type": "content",
+      "sourceText": "Your Stats",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "7cb6ca6af24d",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 122,
+        "column": 8
+      }
+    },
+    "5aa2bd8cd49d": {
+      "type": "content",
+      "sourceText": "Published",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "5aa2bd8cd49d",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 125,
+        "column": 12
+      }
+    },
+    "e6cbd6c7bd6b": {
+      "type": "content",
+      "sourceText": "Drafts",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "e6cbd6c7bd6b",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 129,
+        "column": 12
+      }
+    },
+    "69da03539754": {
+      "type": "content",
+      "sourceText": "Total",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "69da03539754",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 133,
+        "column": 12
+      }
+    },
+    "bdd0a6b0c9fb": {
+      "type": "content",
+      "sourceText": "Language",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "bdd0a6b0c9fb",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 141,
+        "column": 8
+      }
+    },
+    "0f9e270e55e9": {
+      "type": "attribute",
+      "sourceText": "Switch language",
+      "context": {
+        "attributeName": "aria-label",
+        "componentName": "LanguageSwitcher",
+        "filePath": "../components/LanguageSwitcher.tsx"
+      },
+      "hash": "0f9e270e55e9",
+      "location": {
+        "filePath": "../components/LanguageSwitcher.tsx",
+        "line": 52,
+        "column": 6
+      }
+    },
+    "dc8c12840f61": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "dc8c12840f61",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 121,
+        "column": 12
+      }
+    },
+    "83b5242d0ca1": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "83b5242d0ca1",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 128,
+        "column": 12
+      }
+    },
+    "fd6342bb92df": {
+      "type": "content",
+      "sourceText": "{publishDate} · {readTime} min read",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "fd6342bb92df",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 189,
+        "column": 18
+      }
+    },
+    "15deffbe9bdb": {
+      "type": "content",
+      "sourceText": "Written by {expression0}",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "15deffbe9bdb",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 209,
+        "column": 12
+      }
+    },
+    "2a3a802a9cd4": {
+      "type": "content",
+      "sourceText": "•",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "2a3a802a9cd4",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 127,
+        "column": 12
+      }
+    },
+    "d4478bde3afe": {
+      "type": "content",
+      "sourceText": "Image not available",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "d4478bde3afe",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 153,
+        "column": 14
+      }
+    },
+    "92ed7abb5f9e": {
+      "type": "content",
+      "sourceText": "⚠️ External image",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "92ed7abb5f9e",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 163,
+        "column": 16
+      }
+    },
+    "9e29154c1f0c": {
+      "type": "content",
+      "sourceText": "View image externally →",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "9e29154c1f0c",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 164,
+        "column": 16
+      }
+    },
+    "495b2d43887f": {
+      "type": "content",
+      "sourceText": "Loading...",
+      "context": {
+        "componentName": "DashboardLoading",
+        "filePath": "(dashboard)/loading.tsx"
+      },
+      "hash": "495b2d43887f",
+      "location": {
+        "filePath": "(dashboard)/loading.tsx",
+        "line": 8,
+        "column": 8
+      }
+    }
+  },
+  "stats": {
+    "totalEntries": 35,
+    "lastUpdated": "2026-01-22T12:53:03.536Z"
+  }
+}

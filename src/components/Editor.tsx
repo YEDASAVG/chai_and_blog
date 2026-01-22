@@ -338,6 +338,7 @@ export default function Editor({
             className="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center text-gray-500 hover:border-[#f97316] hover:text-[#f97316] transition-colors"
           >
             <svg
+              data-lingo-skip
               className={`w-5 h-5 transition-transform ${plusDropdownOpen ? "rotate-45" : ""}`}
               fill="none"
               stroke="currentColor"
@@ -361,6 +362,7 @@ export default function Editor({
                 title="Add Image"
               >
                 <svg
+                  data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
                   stroke="currentColor"
@@ -385,6 +387,7 @@ export default function Editor({
                 title="Code Block"
               >
                 <svg
+                  data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
                   stroke="currentColor"
@@ -409,6 +412,7 @@ export default function Editor({
                 title="Divider"
               >
                 <svg
+                  data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
                   stroke="currentColor"
@@ -433,6 +437,7 @@ export default function Editor({
                 title="Quote"
               >
                 <svg
+                  data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
                   stroke="currentColor"
@@ -467,6 +472,7 @@ export default function Editor({
                 title="Embed Video (YouTube)"
               >
                 <svg
+                  data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
                   stroke="currentColor"
@@ -574,7 +580,7 @@ export default function Editor({
             }`}
             title="Link (Ctrl+K)"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
             </svg>
           </button>
@@ -609,7 +615,7 @@ export default function Editor({
             }`}
             title="Inline Code"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
           </button>
@@ -644,7 +650,7 @@ export default function Editor({
             className="p-2 text-gray-500 hover:text-white transition-colors"
             title="Cancel"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

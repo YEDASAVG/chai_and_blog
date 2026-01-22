@@ -1,0 +1,642 @@
+{
+  "entries": {
+    "23f799fc42b6": {
+      "type": "metadata",
+      "sourceText": "ChaiAndBlog - Write, Publish, Share",
+      "context": {
+        "fieldPath": "title",
+        "filePath": "layout.tsx"
+      },
+      "hash": "23f799fc42b6",
+      "location": {
+        "filePath": "layout.tsx",
+        "line": 40,
+        "column": 9
+      }
+    },
+    "ce1fdba1eb39": {
+      "type": "metadata",
+      "sourceText": "A dead-simple blogging platform for cohort students",
+      "context": {
+        "fieldPath": "description",
+        "filePath": "layout.tsx"
+      },
+      "hash": "ce1fdba1eb39",
+      "location": {
+        "filePath": "layout.tsx",
+        "line": 41,
+        "column": 15
+      }
+    },
+    "51ea1713c538": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "51ea1713c538",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 70,
+        "column": 12
+      }
+    },
+    "3736f373e62a": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "3736f373e62a",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 77,
+        "column": 12
+      }
+    },
+    "b35a0da5e7df": {
+      "type": "content",
+      "sourceText": "Sign In",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "b35a0da5e7df",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 83,
+        "column": 12
+      }
+    },
+    "1315ec50e32f": {
+      "type": "content",
+      "sourceText": "Get Started",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "1315ec50e32f",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 89,
+        "column": 12
+      }
+    },
+    "3efb3d7f1292": {
+      "type": "content",
+      "sourceText": "Now available in Beta",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "3efb3d7f1292",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 113,
+        "column": 16
+      }
+    },
+    "21415a3f929f": {
+      "type": "content",
+      "sourceText": "Your Thoughts, <br0></br0><span0>Steeped to Perfection. </span0>",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "21415a3f929f",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 118,
+        "column": 12
+      }
+    },
+    "fecd04e90bb1": {
+      "type": "content",
+      "sourceText": "The premium platform for writers who value clarity, community, and a good cup of tea. Experience writing like never before.",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "fecd04e90bb1",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 130,
+        "column": 12
+      }
+    },
+    "aaa9dddef791": {
+      "type": "content",
+      "sourceText": "Start Writing",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "aaa9dddef791",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 146,
+        "column": 16
+      }
+    },
+    "d5b7385387b7": {
+      "type": "content",
+      "sourceText": "Explore Stories",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "d5b7385387b7",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 153,
+        "column": 16
+      }
+    },
+    "dfc422d47bed": {
+      "type": "content",
+      "sourceText": "{blogCount}+",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "dfc422d47bed",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 177,
+        "column": 16
+      }
+    },
+    "b9a10c46845d": {
+      "type": "content",
+      "sourceText": "Joined by {blogCount}+ writers",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "b9a10c46845d",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 181,
+        "column": 14
+      }
+    },
+    "1127026a6dc2": {
+      "type": "content",
+      "sourceText": "© {expression0} Chai and Blogs. All rights reserved.",
+      "context": {
+        "componentName": "LandingPage",
+        "filePath": "../components/LandingPage.tsx"
+      },
+      "hash": "1127026a6dc2",
+      "location": {
+        "filePath": "../components/LandingPage.tsx",
+        "line": 187,
+        "column": 8
+      }
+    },
+    "0f9e270e55e9": {
+      "type": "attribute",
+      "sourceText": "Switch language",
+      "context": {
+        "attributeName": "aria-label",
+        "componentName": "LanguageSwitcher",
+        "filePath": "../components/LanguageSwitcher.tsx"
+      },
+      "hash": "0f9e270e55e9",
+      "location": {
+        "filePath": "../components/LanguageSwitcher.tsx",
+        "line": 52,
+        "column": 6
+      }
+    },
+    "0a6d3d8f9221": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Profile",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "0a6d3d8f9221",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 110,
+        "column": 12
+      }
+    },
+    "fb526eeb5e7e": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Dashboard",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "fb526eeb5e7e",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 122,
+        "column": 12
+      }
+    },
+    "d3b1cc2fd2d0": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Sign out",
+      "context": {
+        "componentName": "UserMenu",
+        "filePath": "../components/UserMenu.tsx"
+      },
+      "hash": "d3b1cc2fd2d0",
+      "location": {
+        "filePath": "../components/UserMenu.tsx",
+        "line": 138,
+        "column": 12
+      }
+    },
+    "40e22f1d36e6": {
+      "type": "content",
+      "sourceText": "Dashboard",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "40e22f1d36e6",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 48,
+        "column": 10
+      }
+    },
+    "7b571ed04bc4": {
+      "type": "content",
+      "sourceText": "Write",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "7b571ed04bc4",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 68,
+        "column": 10
+      }
+    },
+    "9e9807660939": {
+      "type": "content",
+      "sourceText": "Feed",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "9e9807660939",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 92,
+        "column": 10
+      }
+    },
+    "235334a4b9a0": {
+      "type": "content",
+      "sourceText": "Profile",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "235334a4b9a0",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 116,
+        "column": 10
+      }
+    },
+    "7cb6ca6af24d": {
+      "type": "content",
+      "sourceText": "Your Stats",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "7cb6ca6af24d",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 122,
+        "column": 8
+      }
+    },
+    "5aa2bd8cd49d": {
+      "type": "content",
+      "sourceText": "Published",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "5aa2bd8cd49d",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 125,
+        "column": 12
+      }
+    },
+    "e6cbd6c7bd6b": {
+      "type": "content",
+      "sourceText": "Drafts",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "e6cbd6c7bd6b",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 129,
+        "column": 12
+      }
+    },
+    "69da03539754": {
+      "type": "content",
+      "sourceText": "Total",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "69da03539754",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 133,
+        "column": 12
+      }
+    },
+    "bdd0a6b0c9fb": {
+      "type": "content",
+      "sourceText": "Language",
+      "context": {
+        "componentName": "DashboardSidebar",
+        "filePath": "../components/DashboardSidebar.tsx"
+      },
+      "hash": "bdd0a6b0c9fb",
+      "location": {
+        "filePath": "../components/DashboardSidebar.tsx",
+        "line": 141,
+        "column": 8
+      }
+    },
+    "8d1d253d1b88": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "8d1d253d1b88",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 35,
+        "column": 12
+      }
+    },
+    "ee46070e0f9b": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "ee46070e0f9b",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 36,
+        "column": 12
+      }
+    },
+    "01eacb517124": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Write",
+      "context": {
+        "componentName": "DashboardLayout",
+        "filePath": "(dashboard)/layout.tsx"
+      },
+      "hash": "01eacb517124",
+      "location": {
+        "filePath": "(dashboard)/layout.tsx",
+        "line": 41,
+        "column": 12
+      }
+    },
+    "66ae1f9ea301": {
+      "type": "content",
+      "sourceText": "Welcome back, {expression0} 👋",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "66ae1f9ea301",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 71,
+        "column": 8
+      }
+    },
+    "751cfde01486": {
+      "type": "content",
+      "sourceText": "Ready to share your knowledge with the community?",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "751cfde01486",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 74,
+        "column": 8
+      }
+    },
+    "c82a889899ac": {
+      "type": "content",
+      "sourceText": "Featured Blogs",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "c82a889899ac",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 83,
+        "column": 12
+      }
+    },
+    "f631cd6004f5": {
+      "type": "content",
+      "sourceText": "View all →",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "f631cd6004f5",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 84,
+        "column": 12
+      }
+    },
+    "4ed7ad41126a": {
+      "type": "content",
+      "sourceText": "Your Blogs",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "4ed7ad41126a",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 140,
+        "column": 8
+      }
+    },
+    "2a22c1e4e651": {
+      "type": "content",
+      "sourceText": "No blogs yet",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "2a22c1e4e651",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 161,
+        "column": 10
+      }
+    },
+    "80a14358e186": {
+      "type": "content",
+      "sourceText": "Start writing your first blog and share it with the cohort!",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "80a14358e186",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 162,
+        "column": 10
+      }
+    },
+    "91216731e6dc": {
+      "type": "content",
+      "sourceText": "Write Your First Blog",
+      "context": {
+        "componentName": "DashboardPage",
+        "filePath": "(dashboard)/dashboard/page.tsx"
+      },
+      "hash": "91216731e6dc",
+      "location": {
+        "filePath": "(dashboard)/dashboard/page.tsx",
+        "line": 165,
+        "column": 10
+      }
+    },
+    "495b2d43887f": {
+      "type": "content",
+      "sourceText": "Loading...",
+      "context": {
+        "componentName": "DashboardLoading",
+        "filePath": "(dashboard)/loading.tsx"
+      },
+      "hash": "495b2d43887f",
+      "location": {
+        "filePath": "(dashboard)/loading.tsx",
+        "line": 8,
+        "column": 8
+      }
+    },
+    "a40c13f1d265": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "a40c13f1d265",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 33,
+        "column": 12
+      }
+    },
+    "d9569a71def8": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "d9569a71def8",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 34,
+        "column": 12
+      }
+    },
+    "bfcac5dde23d": {
+      "type": "content",
+      "sourceText": "Welcome back! Sign in to continue.",
+      "context": {
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "bfcac5dde23d",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 38,
+        "column": 10
+      }
+    },
+    "a1d27cfb6e8a": {
+      "type": "content",
+      "sourceText": "Continue with GitHub",
+      "context": {
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "a1d27cfb6e8a",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 58,
+        "column": 14
+      }
+    },
+    "f312492cccae": {
+      "type": "content",
+      "sourceText": "Continue with Google",
+      "context": {
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "f312492cccae",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 70,
+        "column": 14
+      }
+    },
+    "d52bd9c93d52": {
+      "type": "content",
+      "sourceText": "Don''t have an account? <Link0>Sign up </Link0>",
+      "context": {
+        "componentName": "SignInPage",
+        "filePath": "sign-in/[[...sign-in]]/page.tsx"
+      },
+      "hash": "d52bd9c93d52",
+      "location": {
+        "filePath": "sign-in/[[...sign-in]]/page.tsx",
+        "line": 75,
+        "column": 10
+      }
+    }
+  },
+  "stats": {
+    "totalEntries": 45,
+    "lastUpdated": "2026-01-22T13:38:02.052Z"
+  }
+}

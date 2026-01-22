@@ -30,6 +30,7 @@ export default function FeedSearch({ initialQuery }: { initialQuery?: string }) 
         className="w-64 bg-gray-800/50 border border-gray-700 rounded-lg pl-10 pr-10 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316] transition-colors"
       />
       <svg
+        data-lingo-skip
         className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
         fill="none"
         stroke="currentColor"
@@ -48,7 +49,7 @@ export default function FeedSearch({ initialQuery }: { initialQuery?: string }) 
           onClick={() => setQuery("")}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
