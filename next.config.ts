@@ -56,6 +56,14 @@ const baseConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/translations/:locale.json",
+        destination: "/translations/:locale",
+      },
+    ];
+  },
 };
 
 // Wrap with Lingo.dev Compiler for automatic multilingual support
