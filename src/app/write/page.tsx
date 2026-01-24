@@ -34,6 +34,7 @@ export default function WritePage() {
   );
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [showSeoPanel, setShowSeoPanel] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
   const contentRef = useRef(content);
   const titleRef = useRef<HTMLTextAreaElement>(null);
 
@@ -154,16 +155,16 @@ export default function WritePage() {
     }
   }, [blogId, title, description, tags, saveToLocalStorage, showToast]);
 
-  // Auto-save every 30 seconds
+  // Auto-save every 30 seconds (but not after publishing)
   useEffect(() => {
     const interval = setInterval(() => {
-      if (title || contentRef.current) {
+      if ((title || contentRef.current) && !isPublishing) {
         saveToDB("draft");
       }
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [title, saveToDB]);
+  }, [title, saveToDB, isPublishing]);
 
   // Manual save
   const handleSaveDraft = async () => {
@@ -177,6 +178,9 @@ export default function WritePage() {
       return;
     }
 
+    // Stop autosave from reverting to draft
+    setIsPublishing(true);
+
     const result = await saveToDB("published");
     
     if (result?.blog?.slug) {
@@ -185,6 +189,9 @@ export default function WritePage() {
       showToast("Blog published successfully! 🎉", "success");
       // Redirect to the published blog
       router.push(`/blog/${result.blog.slug}`);
+    } else {
+      // If publish failed, allow autosave again
+      setIsPublishing(false);
     }
   };
 

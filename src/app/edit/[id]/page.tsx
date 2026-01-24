@@ -38,6 +38,7 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [showSeoPanel, setShowSeoPanel] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
   const contentRef = useRef(content);
   const titleRef = useRef<HTMLTextAreaElement>(null);
 
@@ -131,9 +132,9 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
     }
   }, [id, title, status, description, tags, showToast]);
 
-  // Auto-save every 30 seconds - ONLY for drafts
+  // Auto-save every 30 seconds - ONLY for drafts (and not during publish)
   useEffect(() => {
-    if (loading || notFound || status === "published") return;
+    if (loading || notFound || status === "published" || isPublishing) return;
 
     const interval = setInterval(() => {
       if (title || contentRef.current) {
@@ -142,7 +143,7 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [title, saveToDB, loading, notFound, status]);
+  }, [title, saveToDB, loading, notFound, status, isPublishing]);
 
   // Manual save draft
   const handleSaveDraft = async () => {
@@ -167,9 +168,16 @@ export default function EditPage({ params }: { params: Promise<{ id: string }> }
       showToast("Please add a title before publishing", "error");
       return;
     }
+    
+    // Stop autosave from reverting to draft
+    setIsPublishing(true);
+    
     const result = await saveToDB("published");
     if (result) {
       showToast("Blog published successfully! 🎉", "success");
+    } else {
+      // If publish failed, allow autosave again
+      setIsPublishing(false);
     }
   };
 
