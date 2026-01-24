@@ -203,6 +203,32 @@ function renderContent(content: any): React.ReactNode {
           </div>
         );
       
+      case "table":
+        return (
+          <div className="my-8 overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-700 rounded-lg overflow-hidden">
+              {children}
+            </table>
+          </div>
+        );
+      
+      case "tableRow":
+        return <tr className="border-b border-gray-700">{children}</tr>;
+      
+      case "tableHeader":
+        return (
+          <th className="border border-gray-600 bg-gray-800 px-4 py-3 text-left font-semibold text-white">
+            {children}
+          </th>
+        );
+      
+      case "tableCell":
+        return (
+          <td className="border border-gray-700 px-4 py-3 text-gray-200">
+            {children}
+          </td>
+        );
+      
       default:
         return children;
     }

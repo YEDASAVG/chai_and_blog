@@ -1487,10 +1487,380 @@
         "line": 783,
         "column": 6
       }
+    },
+    "9002eaa8d563": {
+      "type": "content",
+      "sourceText": "Loading...",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "9002eaa8d563",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 232,
+        "column": 10
+      }
+    },
+    "6e5dd2e81f63": {
+      "type": "content",
+      "sourceText": "Blog not found",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "6e5dd2e81f63",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 242,
+        "column": 10
+      }
+    },
+    "be299d1b6025": {
+      "type": "content",
+      "sourceText": "This blog doesn't exist or you don't have permission to edit it.",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "be299d1b6025",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 243,
+        "column": 10
+      }
+    },
+    "98b0c6361871": {
+      "type": "content",
+      "sourceText": "Back to Dashboard",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "98b0c6361871",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 246,
+        "column": 10
+      }
+    },
+    "8577be474f4c": {
+      "type": "content",
+      "sourceText": "Delete Blog",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "8577be474f4c",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 263,
+        "column": 12
+      }
+    },
+    "b7d0a9bd245b": {
+      "type": "content",
+      "sourceText": "Are you sure you want to delete \"{expression0}\"? This action cannot be undone.",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "b7d0a9bd245b",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 264,
+        "column": 12
+      }
+    },
+    "14f66a1bb5d9": {
+      "type": "content",
+      "sourceText": "Cancel",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "14f66a1bb5d9",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 268,
+        "column": 14
+      }
+    },
+    "6ef335afd75e": {
+      "type": "content",
+      "sourceText": "{expression0} Delete",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "6ef335afd75e",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 275,
+        "column": 14
+      }
+    },
+    "ae7e16484a54": {
+      "type": "content",
+      "sourceText": "Back",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "ae7e16484a54",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 303,
+        "column": 12
+      }
+    },
+    "28f5cb664f51": {
+      "type": "content",
+      "sourceText": "{wordCount} words · {readingTime} min read",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "28f5cb664f51",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 308,
+        "column": 12
+      }
+    },
+    "622c14a83144": {
+      "type": "attribute",
+      "sourceText": "SEO Settings",
+      "context": {
+        "attributeName": "title",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "622c14a83144",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 322,
+        "column": 12
+      }
+    },
+    "c5dba24c8ad0": {
+      "type": "attribute",
+      "sourceText": "View Published",
+      "context": {
+        "attributeName": "title",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "c5dba24c8ad0",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 335,
+        "column": 14
+      }
+    },
+    "f28d835cf2b2": {
+      "type": "attribute",
+      "sourceText": "Delete Blog",
+      "context": {
+        "attributeName": "title",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "f28d835cf2b2",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 348,
+        "column": 12
+      }
+    },
+    "81edab75edd7": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Saving...",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "81edab75edd7",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 361,
+        "column": 16
+      }
+    },
+    "75dd0be46c58": {
+      "type": "content",
+      "sourceText": "✓ Saved",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "75dd0be46c58",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 370,
+        "column": 16
+      }
+    },
+    "f6efbdcdd71d": {
+      "type": "content",
+      "sourceText": "Failed to save",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "f6efbdcdd71d",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 373,
+        "column": 16
+      }
+    },
+    "0e1996a83f81": {
+      "type": "content",
+      "sourceText": "Save draft",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "0e1996a83f81",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 380,
+        "column": 16
+      }
+    },
+    "49e3739febbc": {
+      "type": "content",
+      "sourceText": "Publish",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "49e3739febbc",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 387,
+        "column": 16
+      }
+    },
+    "a04db62d4f55": {
+      "type": "content",
+      "sourceText": "Update",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "a04db62d4f55",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 396,
+        "column": 14
+      }
+    },
+    "cebb3d8a8b87": {
+      "type": "content",
+      "sourceText": "SEO Settings",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "cebb3d8a8b87",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 412,
+        "column": 12
+      }
+    },
+    "2ecc8ca60512": {
+      "type": "content",
+      "sourceText": "Meta Description ({expression0}/300)",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "2ecc8ca60512",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 416,
+        "column": 16
+      }
+    },
+    "1bee12480d98": {
+      "type": "attribute",
+      "sourceText": "A brief description of your blog for search engines...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "1bee12480d98",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 419,
+        "column": 16
+      }
+    },
+    "15db22cb81a3": {
+      "type": "content",
+      "sourceText": "Tags ({expression0}/5)",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "15db22cb81a3",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 430,
+        "column": 16
+      }
+    },
+    "1586fa2fbeb7": {
+      "type": "attribute",
+      "sourceText": "Add a tag...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "1586fa2fbeb7",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 453,
+        "column": 20
+      }
+    },
+    "79c06dd09c2d": {
+      "type": "content",
+      "sourceText": "Add",
+      "context": {
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "79c06dd09c2d",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 461,
+        "column": 20
+      }
+    },
+    "2868bd2dc295": {
+      "type": "attribute",
+      "sourceText": "Title",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "EditPage",
+        "filePath": "edit/[id]/page.tsx"
+      },
+      "hash": "2868bd2dc295",
+      "location": {
+        "filePath": "edit/[id]/page.tsx",
+        "line": 480,
+        "column": 10
+      }
     }
   },
   "stats": {
-    "totalEntries": 104,
-    "lastUpdated": "2026-01-24T14:26:35.940Z"
+    "totalEntries": 130,
+    "lastUpdated": "2026-01-24T14:31:44.318Z"
   }
 }
