@@ -69,10 +69,17 @@ function renderContent(content: any): React.ReactNode {
     }
     
     // Element nodes
+    // For table elements, don't wrap in spans (breaks HTML table structure)
+    const isTableElement = ["table", "tableRow", "tableHeader", "tableCell"].includes(node.type);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const children = node.content?.map((child: any, i: number) => (
-      <span key={i}>{renderNode(child)}</span>
-    ));
+    const children = node.content?.map((child: any, i: number) => {
+      const rendered = renderNode(child);
+      // Don't wrap table children or if parent is a table element
+      if (isTableElement || ["tableRow", "tableHeader", "tableCell"].includes(child.type)) {
+        return <React.Fragment key={i}>{rendered}</React.Fragment>;
+      }
+      return <span key={i}>{rendered}</span>;
+    });
     
     switch (node.type) {
       case "doc":
@@ -206,25 +213,37 @@ function renderContent(content: any): React.ReactNode {
       case "table":
         return (
           <div className="my-8 overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-700 rounded-lg overflow-hidden">
-              {children}
+            <table className="w-full border-collapse border border-gray-700 rounded-lg">
+              <tbody>{children}</tbody>
             </table>
           </div>
         );
       
       case "tableRow":
-        return <tr className="border-b border-gray-700">{children}</tr>;
+        return <tr>{children}</tr>;
       
       case "tableHeader":
+        const thColspan = node.attrs?.colspan || 1;
+        const thRowspan = node.attrs?.rowspan || 1;
         return (
-          <th className="border border-gray-600 bg-gray-800 px-4 py-3 text-left font-semibold text-white">
+          <th 
+            colSpan={thColspan}
+            rowSpan={thRowspan}
+            className="border border-gray-600 bg-gray-800 px-4 py-3 text-left font-semibold text-white [&>p]:mb-0 [&>p]:text-base"
+          >
             {children}
           </th>
         );
       
       case "tableCell":
+        const tdColspan = node.attrs?.colspan || 1;
+        const tdRowspan = node.attrs?.rowspan || 1;
         return (
-          <td className="border border-gray-700 px-4 py-3 text-gray-200">
+          <td 
+            colSpan={tdColspan}
+            rowSpan={tdRowspan}
+            className="border border-gray-700 bg-gray-900/50 px-4 py-3 text-gray-200 [&>p]:mb-0 [&>p]:text-base"
+          >
             {children}
           </td>
         );

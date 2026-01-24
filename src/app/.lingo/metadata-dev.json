@@ -1857,10 +1857,123 @@
         "line": 480,
         "column": 10
       }
+    },
+    "dc8c12840f61": {
+      "type": "attribute",
+      "sourceText": "ChaiAndBlog",
+      "context": {
+        "attributeName": "alt",
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "dc8c12840f61",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 121,
+        "column": 12
+      }
+    },
+    "83b5242d0ca1": {
+      "type": "content",
+      "sourceText": "Chai<span0>_And_</span0>Blog",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "83b5242d0ca1",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 128,
+        "column": 12
+      }
+    },
+    "fd6342bb92df": {
+      "type": "content",
+      "sourceText": "{publishDate} · {readTime} min read",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "fd6342bb92df",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 189,
+        "column": 18
+      }
+    },
+    "15deffbe9bdb": {
+      "type": "content",
+      "sourceText": "Written by {expression0}",
+      "context": {
+        "componentName": "BlogPage",
+        "filePath": "blog/[slug]/page.tsx"
+      },
+      "hash": "15deffbe9bdb",
+      "location": {
+        "filePath": "blog/[slug]/page.tsx",
+        "line": 209,
+        "column": 12
+      }
+    },
+    "2a3a802a9cd4": {
+      "type": "content",
+      "sourceText": "•",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "2a3a802a9cd4",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 134,
+        "column": 12
+      }
+    },
+    "d4478bde3afe": {
+      "type": "content",
+      "sourceText": "Image not available",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "d4478bde3afe",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 160,
+        "column": 14
+      }
+    },
+    "92ed7abb5f9e": {
+      "type": "content",
+      "sourceText": "⚠️ External image",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "92ed7abb5f9e",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 170,
+        "column": 16
+      }
+    },
+    "9e29154c1f0c": {
+      "type": "content",
+      "sourceText": "View image externally →",
+      "context": {
+        "componentName": "renderNode",
+        "filePath": "../components/BlogContent.tsx"
+      },
+      "hash": "9e29154c1f0c",
+      "location": {
+        "filePath": "../components/BlogContent.tsx",
+        "line": 171,
+        "column": 16
+      }
     }
   },
   "stats": {
-    "totalEntries": 130,
-    "lastUpdated": "2026-01-24T14:31:44.318Z"
+    "totalEntries": 138,
+    "lastUpdated": "2026-01-24T14:54:04.522Z"
   }
 }
