@@ -633,10 +633,864 @@
         "line": 75,
         "column": 10
       }
+    },
+    "03aebd53f784": {
+      "type": "content",
+      "sourceText": "Back",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "03aebd53f784",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 223,
+        "column": 12
+      }
+    },
+    "b8610062c10a": {
+      "type": "content",
+      "sourceText": "{wordCount} words · {readingTime} min read",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "b8610062c10a",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 228,
+        "column": 12
+      }
+    },
+    "eef0cf70a0c8": {
+      "type": "attribute",
+      "sourceText": "SEO Settings",
+      "context": {
+        "attributeName": "title",
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "eef0cf70a0c8",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 233,
+        "column": 12
+      }
+    },
+    "c17dea0e4654": {
+      "type": "content",
+      "sourceText": "<svg0></svg0> Saving...",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "c17dea0e4654",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 247,
+        "column": 16
+      }
+    },
+    "680833c4cec7": {
+      "type": "content",
+      "sourceText": "✓ Saved",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "680833c4cec7",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 256,
+        "column": 16
+      }
+    },
+    "4966f54e46fe": {
+      "type": "content",
+      "sourceText": "Failed to save",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "4966f54e46fe",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 259,
+        "column": 16
+      }
+    },
+    "5f2b9db55529": {
+      "type": "content",
+      "sourceText": "Save draft",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "5f2b9db55529",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 263,
+        "column": 12
+      }
+    },
+    "97f46ba0b4a9": {
+      "type": "content",
+      "sourceText": "Publish",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "97f46ba0b4a9",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 271,
+        "column": 12
+      }
+    },
+    "1fb9b847c551": {
+      "type": "content",
+      "sourceText": "SEO Settings",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "1fb9b847c551",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 286,
+        "column": 12
+      }
+    },
+    "5ca214efb86e": {
+      "type": "content",
+      "sourceText": "Meta Description ({expression0}/300)",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "5ca214efb86e",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 290,
+        "column": 16
+      }
+    },
+    "06532dc2d933": {
+      "type": "attribute",
+      "sourceText": "A brief description of your blog for search engines...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "06532dc2d933",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 293,
+        "column": 16
+      }
+    },
+    "f6a4a8faa14d": {
+      "type": "content",
+      "sourceText": "Tags ({expression0}/5)",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "f6a4a8faa14d",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 304,
+        "column": 16
+      }
+    },
+    "6cdb12de9ba4": {
+      "type": "attribute",
+      "sourceText": "Add a tag...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "6cdb12de9ba4",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 327,
+        "column": 20
+      }
+    },
+    "abb7fd71bd47": {
+      "type": "content",
+      "sourceText": "Add",
+      "context": {
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "abb7fd71bd47",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 335,
+        "column": 20
+      }
+    },
+    "47fe1800bf02": {
+      "type": "attribute",
+      "sourceText": "Title",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "WritePage",
+        "filePath": "write/page.tsx"
+      },
+      "hash": "47fe1800bf02",
+      "location": {
+        "filePath": "write/page.tsx",
+        "line": 354,
+        "column": 10
+      }
+    },
+    "156af0e47619": {
+      "type": "attribute",
+      "sourceText": "Add Image",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "156af0e47619",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 383,
+        "column": 14
+      }
+    },
+    "40e3dce1941d": {
+      "type": "attribute",
+      "sourceText": "Code Block",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "40e3dce1941d",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 404,
+        "column": 14
+      }
+    },
+    "7905fd18ae6e": {
+      "type": "attribute",
+      "sourceText": "Divider",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "7905fd18ae6e",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 429,
+        "column": 14
+      }
+    },
+    "e68145a813e1": {
+      "type": "attribute",
+      "sourceText": "Quote",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "e68145a813e1",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 454,
+        "column": 14
+      }
+    },
+    "071abc8f178f": {
+      "type": "attribute",
+      "sourceText": "Section Break (⌘+Enter)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "071abc8f178f",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 480,
+        "column": 14
+      }
+    },
+    "a9e2ad6190ce": {
+      "type": "content",
+      "sourceText": "•••",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "a9e2ad6190ce",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 489,
+        "column": 16
+      }
+    },
+    "8c7f99d7c5a4": {
+      "type": "attribute",
+      "sourceText": "Embed Video (YouTube)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "8c7f99d7c5a4",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 493,
+        "column": 14
+      }
+    },
+    "d18e0e2e08ac": {
+      "type": "attribute",
+      "sourceText": "Insert Table",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "d18e0e2e08ac",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 521,
+        "column": 14
+      }
+    },
+    "7c394792ca2c": {
+      "type": "content",
+      "sourceText": "Embed YouTube Video",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "7c394792ca2c",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 554,
+        "column": 12
+      }
+    },
+    "669bfd77d62c": {
+      "type": "attribute",
+      "sourceText": "Paste YouTube URL...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "669bfd77d62c",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 555,
+        "column": 12
+      }
+    },
+    "13b4d5fb6f76": {
+      "type": "content",
+      "sourceText": "Example: https://youtube.com/watch?v=dQw4w9WgXcQ",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "13b4d5fb6f76",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 564,
+        "column": 12
+      }
+    },
+    "f399a6fc2784": {
+      "type": "content",
+      "sourceText": "Cancel",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "f399a6fc2784",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 566,
+        "column": 14
+      }
+    },
+    "c765b5cfc59d": {
+      "type": "content",
+      "sourceText": "Embed",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "c765b5cfc59d",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 576,
+        "column": 14
+      }
+    },
+    "f660eb615a39": {
+      "type": "attribute",
+      "sourceText": "Bold (Ctrl+B)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "f660eb615a39",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 598,
+        "column": 10
+      }
+    },
+    "2be50a519379": {
+      "type": "content",
+      "sourceText": "B",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "2be50a519379",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 605,
+        "column": 12
+      }
+    },
+    "2eefa3c4c857": {
+      "type": "attribute",
+      "sourceText": "Italic (Ctrl+I)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "2eefa3c4c857",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 607,
+        "column": 10
+      }
+    },
+    "a059da3f829d": {
+      "type": "content",
+      "sourceText": "I",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "a059da3f829d",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 614,
+        "column": 12
+      }
+    },
+    "8450b8d13993": {
+      "type": "attribute",
+      "sourceText": "Underline (Ctrl+U)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "8450b8d13993",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 616,
+        "column": 10
+      }
+    },
+    "5e499d439819": {
+      "type": "content",
+      "sourceText": "U",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "5e499d439819",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 623,
+        "column": 12
+      }
+    },
+    "3a29548841c3": {
+      "type": "attribute",
+      "sourceText": "Link (Ctrl+K)",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "3a29548841c3",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 626,
+        "column": 10
+      }
+    },
+    "8a6466227884": {
+      "type": "attribute",
+      "sourceText": "Heading 1",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "8a6466227884",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 638,
+        "column": 10
+      }
+    },
+    "6589d638fdad": {
+      "type": "content",
+      "sourceText": "H1",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "6589d638fdad",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 638,
+        "column": 10
+      }
+    },
+    "0529187d9867": {
+      "type": "attribute",
+      "sourceText": "Heading 2",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "0529187d9867",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 649,
+        "column": 10
+      }
+    },
+    "d0b2c320f176": {
+      "type": "content",
+      "sourceText": "H2",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "d0b2c320f176",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 649,
+        "column": 10
+      }
+    },
+    "70c8df56cf53": {
+      "type": "attribute",
+      "sourceText": "Inline Code",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "70c8df56cf53",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 661,
+        "column": 10
+      }
+    },
+    "6396f47671ab": {
+      "type": "attribute",
+      "sourceText": "Paste or type a link...",
+      "context": {
+        "attributeName": "placeholder",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "6396f47671ab",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 685,
+        "column": 10
+      }
+    },
+    "ec7bc929d014": {
+      "type": "attribute",
+      "sourceText": "Cancel",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "ec7bc929d014",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 694,
+        "column": 10
+      }
+    },
+    "e9e29e940ebf": {
+      "type": "content",
+      "sourceText": "Table:",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "e9e29e940ebf",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 713,
+        "column": 10
+      }
+    },
+    "4169e31c8af8": {
+      "type": "attribute",
+      "sourceText": "Add column before",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "4169e31c8af8",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 714,
+        "column": 10
+      }
+    },
+    "03ef6245b9c1": {
+      "type": "content",
+      "sourceText": "+ Col ←",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "03ef6245b9c1",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 714,
+        "column": 10
+      }
+    },
+    "a6202eebb599": {
+      "type": "attribute",
+      "sourceText": "Add column after",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "a6202eebb599",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 721,
+        "column": 10
+      }
+    },
+    "816b203915a0": {
+      "type": "content",
+      "sourceText": "+ Col →",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "816b203915a0",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 721,
+        "column": 10
+      }
+    },
+    "8c4cb677f896": {
+      "type": "attribute",
+      "sourceText": "Add row above",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "8c4cb677f896",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 729,
+        "column": 10
+      }
+    },
+    "b574f4578976": {
+      "type": "content",
+      "sourceText": "+ Row ↑",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "b574f4578976",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 729,
+        "column": 10
+      }
+    },
+    "e944f1dd3559": {
+      "type": "attribute",
+      "sourceText": "Add row below",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "e944f1dd3559",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 736,
+        "column": 10
+      }
+    },
+    "ce9268aa5565": {
+      "type": "content",
+      "sourceText": "+ Row ↓",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "ce9268aa5565",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 736,
+        "column": 10
+      }
+    },
+    "866165fded9f": {
+      "type": "attribute",
+      "sourceText": "Delete column",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "866165fded9f",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 744,
+        "column": 10
+      }
+    },
+    "bc4d91f4cd8a": {
+      "type": "content",
+      "sourceText": "− Col",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "bc4d91f4cd8a",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 744,
+        "column": 10
+      }
+    },
+    "bad213c0632f": {
+      "type": "attribute",
+      "sourceText": "Delete row",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "bad213c0632f",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 751,
+        "column": 10
+      }
+    },
+    "6200d70023e9": {
+      "type": "content",
+      "sourceText": "− Row",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "6200d70023e9",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 751,
+        "column": 10
+      }
+    },
+    "b323fa116786": {
+      "type": "attribute",
+      "sourceText": "Delete table",
+      "context": {
+        "attributeName": "title",
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "b323fa116786",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 759,
+        "column": 10
+      }
+    },
+    "59db672c0447": {
+      "type": "content",
+      "sourceText": "Delete Table",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "59db672c0447",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 759,
+        "column": 10
+      }
+    },
+    "76606bcf7a18": {
+      "type": "content",
+      "sourceText": "Uploading image...",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "76606bcf7a18",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 774,
+        "column": 12
+      }
+    },
+    "10a70acc8e5c": {
+      "type": "content",
+      "sourceText": "{expression0} words",
+      "context": {
+        "componentName": "Editor",
+        "filePath": "../components/Editor.tsx"
+      },
+      "hash": "10a70acc8e5c",
+      "location": {
+        "filePath": "../components/Editor.tsx",
+        "line": 783,
+        "column": 6
+      }
     }
   },
   "stats": {
-    "totalEntries": 45,
-    "lastUpdated": "2026-01-22T13:38:02.052Z"
+    "totalEntries": 104,
+    "lastUpdated": "2026-01-24T13:27:47.200Z"
   }
 }

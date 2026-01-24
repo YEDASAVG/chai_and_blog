@@ -114,6 +114,22 @@
     "bfcac5dde23d": "Welcome back! Sign in to continue.",
     "a1d27cfb6e8a": "Continue with GitHub",
     "f312492cccae": "Continue with Google",
-    "d52bd9c93d52": "Don''t have an account? <Link0>Sign up </Link0>"
+    "d52bd9c93d52": "Don''t have an account? <Link0>Sign up </Link0>",
+    "d18e0e2e08ac": "Insert Table",
+    "e9e29e940ebf": "Table:",
+    "4169e31c8af8": "Add column before",
+    "03ef6245b9c1": "+ Col ←",
+    "a6202eebb599": "Add column after",
+    "816b203915a0": "+ Col →",
+    "8c4cb677f896": "Add row above",
+    "b574f4578976": "+ Row ↑",
+    "e944f1dd3559": "Add row below",
+    "ce9268aa5565": "+ Row ↓",
+    "866165fded9f": "Delete column",
+    "bc4d91f4cd8a": "− Col",
+    "bad213c0632f": "Delete row",
+    "6200d70023e9": "− Row",
+    "b323fa116786": "Delete table",
+    "59db672c0447": "Delete Table"
   }
 }

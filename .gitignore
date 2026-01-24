@@ -57,3 +57,5 @@ Thumbs.db
 
 # Lingo cache
 .lingo/
+
+src/app/.lingo/translation-server.log

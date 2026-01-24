@@ -323,6 +323,71 @@
   border: none;
 }
 
+/* Table Styles */
+.ProseMirror table {
+  border-collapse: collapse;
+  table-layout: auto;
+  width: 100%;
+  margin: 2rem 0;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(75, 75, 75, 1);
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid rgba(60, 60, 60, 1);
+  padding: 0.75rem 1rem;
+  position: relative;
+  vertical-align: top;
+  min-width: 100px;
+}
+
+.ProseMirror th {
+  background-color: rgba(40, 40, 40, 1);
+  font-weight: 600;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+}
+
+.ProseMirror td {
+  background-color: rgba(25, 25, 25, 1);
+}
+
+/* Selected cell highlight */
+.ProseMirror .selectedCell::after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(249, 115, 22, 0.15);
+  pointer-events: none;
+}
+
+/* Table resize handle */
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: -2px;
+  width: 4px;
+  background-color: #f97316;
+  pointer-events: none;
+}
+
+.ProseMirror.resize-cursor {
+  cursor: col-resize;
+}
+
+/* Table cell content */
+.ProseMirror th p,
+.ProseMirror td p {
+  margin: 0;
+}
+
 /* Landing Page Animations */
 @keyframes float {
   0%, 100% {

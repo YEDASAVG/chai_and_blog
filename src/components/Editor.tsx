@@ -10,6 +10,10 @@ import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import CharacterCount from "@tiptap/extension-character-count";
 import Youtube from "@tiptap/extension-youtube";
 import Typography from "@tiptap/extension-typography";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 import { common, createLowlight } from "lowlight";
 import { useCallback, useState, useEffect, useRef } from "react";
 import SectionSeparator from "./extensions/SectionSeparator";
@@ -39,6 +43,8 @@ export default function Editor({
   const [linkUrl, setLinkUrl] = useState("");
   const [showVideoInput, setShowVideoInput] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [showTableMenu, setShowTableMenu] = useState(false);
+  const [tableMenuPos, setTableMenuPos] = useState({ top: 0, left: 0 });
   const editorRef = useRef<HTMLDivElement>(null);
   const linkInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -86,6 +92,24 @@ export default function Editor({
       SectionSeparator,
       // Typography extension for smart quotes and symbols
       Typography,
+      // Table extensions
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: "border-collapse table-auto w-full my-4",
+        },
+      }),
+      TableRow,
+      TableHeader.configure({
+        HTMLAttributes: {
+          class: "border border-gray-600 bg-gray-800 px-4 py-2 text-left font-semibold",
+        },
+      }),
+      TableCell.configure({
+        HTMLAttributes: {
+          class: "border border-gray-700 px-4 py-2",
+        },
+      }),
     ],
     content: content || {
       type: "doc",
@@ -492,6 +516,32 @@ export default function Editor({
                   />
                 </svg>
               </button>
+
+              {/* Table */}
+              <button
+                onClick={() => {
+                  editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+                  setShowPlusMenu(false);
+                  setPlusDropdownOpen(false);
+                }}
+                className="w-9 h-9 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors group"
+                title="Insert Table"
+              >
+                <svg
+                  data-lingo-skip
+                  className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M3 10h18M3 14h18M10 3v18M14 3v18M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6z"
+                  />
+                </svg>
+              </button>
             </div>
           )}
         </div>
@@ -653,6 +703,65 @@ export default function Editor({
             <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Table Controls - appears when cursor is in a table */}
+      {editor.isActive("table") && (
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-40 bg-[#1a1a1a] rounded-lg shadow-2xl border border-gray-800 p-2 flex items-center gap-1">
+          <span className="text-xs text-gray-500 px-2">Table:</span>
+          <button
+            onClick={() => editor.chain().focus().addColumnBefore().run()}
+            className="px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-800 rounded transition-colors"
+            title="Add column before"
+          >
+            + Col ←
+          </button>
+          <button
+            onClick={() => editor.chain().focus().addColumnAfter().run()}
+            className="px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-800 rounded transition-colors"
+            title="Add column after"
+          >
+            + Col →
+          </button>
+          <div className="w-px h-4 bg-gray-700 mx-1"></div>
+          <button
+            onClick={() => editor.chain().focus().addRowBefore().run()}
+            className="px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-800 rounded transition-colors"
+            title="Add row above"
+          >
+            + Row ↑
+          </button>
+          <button
+            onClick={() => editor.chain().focus().addRowAfter().run()}
+            className="px-2 py-1.5 text-xs text-gray-300 hover:bg-gray-800 rounded transition-colors"
+            title="Add row below"
+          >
+            + Row ↓
+          </button>
+          <div className="w-px h-4 bg-gray-700 mx-1"></div>
+          <button
+            onClick={() => editor.chain().focus().deleteColumn().run()}
+            className="px-2 py-1.5 text-xs text-red-400 hover:bg-gray-800 rounded transition-colors"
+            title="Delete column"
+          >
+            − Col
+          </button>
+          <button
+            onClick={() => editor.chain().focus().deleteRow().run()}
+            className="px-2 py-1.5 text-xs text-red-400 hover:bg-gray-800 rounded transition-colors"
+            title="Delete row"
+          >
+            − Row
+          </button>
+          <div className="w-px h-4 bg-gray-700 mx-1"></div>
+          <button
+            onClick={() => editor.chain().focus().deleteTable().run()}
+            className="px-2 py-1.5 text-xs text-red-500 hover:bg-gray-800 rounded transition-colors"
+            title="Delete table"
+          >
+            Delete Table
           </button>
         </div>
       )}
