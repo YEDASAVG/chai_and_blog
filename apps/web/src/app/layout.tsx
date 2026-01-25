@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4, Lora, Space_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { LingoProvider } from "@lingo.dev/compiler/react";
 import { ToastProvider } from "@/components/Toast";
 import "./globals.css";
 
@@ -55,13 +54,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} ${lora.variable} ${spaceGrotesk.variable} antialiased`}
         suppressHydrationWarning
       >
-        <LingoProvider>
-          <ClerkProvider>
-            <ToastProvider>
-              {children}
-            </ToastProvider>
-          </ClerkProvider>
-        </LingoProvider>
+        <ClerkProvider>
+          <ToastProvider>
+            {children}
+          </ToastProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

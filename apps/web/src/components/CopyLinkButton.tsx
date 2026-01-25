@@ -27,7 +27,6 @@ export default function CopyLinkButton({ slug }: CopyLinkButtonProps) {
     >
       {copied ? (
         <svg
-          data-lingo-skip
           className="w-5 h-5 text-green-400"
           fill="none"
           stroke="currentColor"
@@ -42,7 +41,6 @@ export default function CopyLinkButton({ slug }: CopyLinkButtonProps) {
         </svg>
       ) : (
         <svg
-          data-lingo-skip
           className="w-5 h-5"
           fill="none"
           stroke="currentColor"

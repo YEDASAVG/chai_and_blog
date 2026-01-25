@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 interface DashboardSidebarProps {
   userName?: string;
@@ -36,7 +35,6 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -56,7 +54,6 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -80,7 +77,6 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -104,7 +100,6 @@ export default function DashboardSidebar({
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-            data-lingo-skip
           >
             <path
               strokeLinecap="round"
@@ -136,11 +131,6 @@ export default function DashboardSidebar({
         </div>
       </div>
 
-      {/* Language Switcher */}
-      <div className="mt-4 p-4 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-800">
-        <h3 className="text-sm font-medium text-gray-400 mb-3">Language</h3>
-        <LanguageSwitcher />
-      </div>
     </aside>
   );
 }

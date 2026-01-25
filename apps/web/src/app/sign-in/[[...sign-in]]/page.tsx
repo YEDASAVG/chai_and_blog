@@ -1,26 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { useSignUp } from "@clerk/nextjs";
+import { useSignIn } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function SignUpPage() {
-  const { isLoaded, signUp } = useSignUp();
+export default function SignInPage() {
+  const { isLoaded, signIn } = useSignIn();
   const [error, setError] = useState("");
 
-  const handleOAuthSignUp = async (provider: "oauth_github" | "oauth_google") => {
+  const handleOAuthSignIn = async (provider: "oauth_github" | "oauth_google") => {
     if (!isLoaded) return;
 
     try {
-      await signUp.authenticateWithRedirect({
+      await signIn.authenticateWithRedirect({
         strategy: provider,
         redirectUrl: "/sso-callback",
         redirectUrlComplete: "/dashboard",
       });
     } catch (err: unknown) {
       const clerkError = err as { errors?: { message: string }[] };
-      setError(clerkError.errors?.[0]?.message || "OAuth sign up failed");
+      setError(clerkError.errors?.[0]?.message || "OAuth sign in failed");
     }
   };
 
@@ -35,7 +35,7 @@ export default function SignUpPage() {
               Chai<span className="text-[#f97316]">_And_</span>Blog
             </span>
           </Link>
-          <p className="mt-3 text-gray-400">Create your account and start writing.</p>
+          <p className="mt-3 text-gray-400">Welcome back! Sign in to continue.</p>
         </div>
 
         {/* Card */}
@@ -49,7 +49,7 @@ export default function SignUpPage() {
           {/* OAuth Buttons */}
           <div className="space-y-3">
             <button
-              onClick={() => handleOAuthSignUp("oauth_github")}
+              onClick={() => handleOAuthSignIn("oauth_github")}
               className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-[#0a0a0a] border border-gray-700 rounded-xl text-white font-medium hover:bg-gray-900 hover:border-gray-600 transition-all"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@ export default function SignUpPage() {
               <span>Continue with GitHub</span>
             </button>
             <button
-              onClick={() => handleOAuthSignUp("oauth_google")}
+              onClick={() => handleOAuthSignIn("oauth_google")}
               className="w-full flex items-center justify-center gap-3 px-4 py-3.5 bg-[#0a0a0a] border border-gray-700 rounded-xl text-white font-medium hover:bg-gray-900 hover:border-gray-600 transition-all"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -71,11 +71,11 @@ export default function SignUpPage() {
             </button>
           </div>
 
-          {/* Sign in link */}
+          {/* Sign up link */}
           <p className="mt-6 text-center text-gray-400 text-sm">
-            Already have an account?{" "}
-            <Link href="/sign-in" className="text-[#f97316] hover:underline font-medium">
-              Sign in
+            Don&apos;t have an account?{" "}
+            <Link href="/sign-up" className="text-[#f97316] hover:underline font-medium">
+              Sign up
             </Link>
           </p>
         </div>

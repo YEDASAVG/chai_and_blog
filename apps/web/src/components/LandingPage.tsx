@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ArrowRight, BookOpen } from "lucide-react";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 type LandingPageProps = {
   blogCount: number;
@@ -79,7 +78,6 @@ export default function LandingPage({ blogCount }: LandingPageProps) {
             </span>
           </Link>
           <div className="flex items-center gap-4">
-            <LanguageSwitcher />
             <Link 
               href="/sign-in"
               className="hidden md:block text-white/80 hover:text-white text-sm font-semibold transition-colors"
@@ -106,7 +104,7 @@ export default function LandingPage({ blogCount }: LandingPageProps) {
             {/* Tag */}
             <motion.div variants={fadeUpSoft}>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-[#f97316] uppercase tracking-wider">
-                <span className="relative flex h-2 w-2" data-lingo-skip>
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f97316] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f97316]"></span>
                 </span>
