@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
-import { withLingo } from "@lingo.dev/compiler/next";
+// Temporarily disabled lingo.dev due to API issues
+// import { withLingo } from "@lingo.dev/compiler/next";
 
-const baseConfig: NextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -66,27 +67,4 @@ const baseConfig: NextConfig = {
   },
 };
 
-// Wrap with Lingo.dev Compiler for automatic multilingual support
-async function createConfig(): Promise<NextConfig> {
-  return await withLingo(baseConfig, {
-    sourceRoot: "./src/app",
-    lingoDir: ".lingo",
-    sourceLocale: "en",
-    targetLocales: [
-      "es", "fr", "de", "it", "pt", "nl", "pl", "ru", "uk", "sv",
-      "ja", "ko", "zh", "hi", "th", "vi", "id", "tr", "he",
-    ],
-    useDirective: false,
-    models: "lingo.dev",
-    pluralization: {
-      enabled: false,
-      model: "lingo.dev",
-    },
-    dev: {
-      usePseudotranslator: false,
-    },
-    buildMode: "skip",
-  });
-}
-
-export default createConfig;
+export default nextConfig;
