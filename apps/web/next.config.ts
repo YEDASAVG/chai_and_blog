@@ -85,7 +85,7 @@ async function createConfig(): Promise<NextConfig> {
     dev: {
       usePseudotranslator: false,
     },
-    buildMode: "lazy",
+    buildMode: "skip",
   });
 }
 
