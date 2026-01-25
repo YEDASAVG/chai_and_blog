@@ -74,7 +74,7 @@ async function createConfig(): Promise<NextConfig> {
     sourceLocale: "en",
     targetLocales: [
       "es", "fr", "de", "it", "pt", "nl", "pl", "ru", "uk", "sv",
-      "ja", "ko", "zh", "hi", "th", "vi", "id", "ar", "tr", "he",
+      "ja", "ko", "zh", "hi", "th", "vi", "id", "tr", "he",
     ],
     useDirective: false,
     models: "lingo.dev",
