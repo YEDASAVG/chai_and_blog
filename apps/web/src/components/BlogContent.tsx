@@ -33,7 +33,7 @@ function renderContent(content: any): React.ReactNode {
               element = <u key={Math.random()}>{element}</u>;
               break;
             case "code":
-              element = <code key={Math.random()} className="bg-gray-800 px-1.5 py-0.5 rounded text-sm text-[#f97316]">{element}</code>;
+              element = <code key={Math.random()} className="bg-[rgba(45,45,45,1)] px-[0.4em] py-[0.2em] rounded text-[0.85em] text-[#f97316] font-mono">{element}</code>;
               break;
             case "link":
               // Sanitize href to prevent XSS (javascript: protocol)
@@ -109,7 +109,7 @@ function renderContent(content: any): React.ReactNode {
       
       case "blockquote":
         return (
-          <blockquote className="border-l-4 border-[#f97316] pl-6 my-8 italic text-gray-300">
+          <blockquote className="border-l-[3px] border-[#f97316] pl-5 my-8 italic text-[rgba(180,180,180,1)]">
             {children}
           </blockquote>
         );
@@ -118,13 +118,17 @@ function renderContent(content: any): React.ReactNode {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const code = node.content?.map((c: any) => c.text || "").join("\n");
         return (
-          <pre className="bg-gray-900 rounded-lg p-4 my-6 overflow-x-auto">
-            <code className="text-sm font-mono text-gray-100">{code}</code>
+          <pre className="bg-[rgba(20,20,20,1)] border border-[rgba(50,50,50,1)] rounded-lg px-6 py-5 my-8 overflow-x-auto">
+            <code className="text-sm font-mono text-[rgba(220,220,220,1)] leading-relaxed">{code}</code>
           </pre>
         );
       
       case "horizontalRule":
-        return <hr className="my-10 border-gray-700" />;
+        return (
+          <div className="my-10 text-center tracking-[0.6em] text-lg text-[rgba(100,100,100,1)]">
+            • • •
+          </div>
+        );
       
       case "sectionSeparator":
         return (
@@ -213,7 +217,7 @@ function renderContent(content: any): React.ReactNode {
       case "table":
         return (
           <div className="my-8 overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-700 rounded-lg">
+            <table className="w-full border-collapse border border-[rgba(75,75,75,1)] rounded-lg overflow-hidden">
               <tbody>{children}</tbody>
             </table>
           </div>
@@ -229,7 +233,7 @@ function renderContent(content: any): React.ReactNode {
           <th 
             colSpan={thColspan}
             rowSpan={thRowspan}
-            className="border border-gray-600 bg-gray-800 px-4 py-3 text-left font-semibold text-white [&>p]:mb-0 [&>p]:text-base"
+            className="border border-[rgba(60,60,60,1)] bg-[rgba(40,40,40,1)] px-4 py-3 text-left font-semibold text-white [&>p]:mb-0 [&>p]:text-base"
           >
             {children}
           </th>
@@ -242,7 +246,7 @@ function renderContent(content: any): React.ReactNode {
           <td 
             colSpan={tdColspan}
             rowSpan={tdRowspan}
-            className="border border-gray-700 bg-gray-900/50 px-4 py-3 text-gray-200 [&>p]:mb-0 [&>p]:text-base"
+            className="border border-[rgba(60,60,60,1)] bg-[rgba(25,25,25,1)] px-4 py-3 text-gray-200 [&>p]:mb-0 [&>p]:text-base"
           >
             {children}
           </td>
