@@ -60,17 +60,10 @@ export default function WritePage() {
     }
   }, [title]);
 
-  // Load draft from localStorage on mount
+  // Clear any stale draft data on mount - Write page always starts fresh
+  // Users can continue drafts from the Dashboard by clicking "Edit"
   useEffect(() => {
-    const draft = localStorage.getItem("blog-draft");
-    if (draft) {
-      const parsed = JSON.parse(draft);
-      setTitle(parsed.title || "");
-      setContent(parsed.content || null);
-      setDescription(parsed.description || "");
-      setTags(parsed.tags || []);
-      setBlogId(parsed.blogId || null);
-    }
+    localStorage.removeItem("blog-draft");
   }, []);
 
   // Save to localStorage (backup)
