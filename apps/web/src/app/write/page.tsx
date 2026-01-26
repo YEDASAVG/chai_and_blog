@@ -100,8 +100,8 @@ export default function WritePage() {
         status,
       });
 
-      // Store the blog ID for future saves
-      if (data.blog?.id) {
+      // Store the blog ID for future saves (only for drafts, not when publishing)
+      if (data.blog?.id && status === "draft") {
         setBlogId(data.blog.id);
         // Update localStorage with blog ID
         const draft = { title, content: contentRef.current, description, tags, blogId: data.blog.id };
@@ -135,7 +135,8 @@ export default function WritePage() {
             status,
           });
 
-          if (retryData.blog?.id) {
+          // Only save to localStorage for drafts
+          if (retryData.blog?.id && status === "draft") {
             setBlogId(retryData.blog.id);
             const draft = { title, content: contentRef.current, description, tags, blogId: retryData.blog.id };
             localStorage.setItem("blog-draft", JSON.stringify(draft));
@@ -198,12 +199,13 @@ export default function WritePage() {
       clearInterval(autoSaveIntervalRef.current);
       autoSaveIntervalRef.current = null;
     }
+    
+    // Clear draft from localStorage BEFORE publishing to prevent stale data
+    localStorage.removeItem("blog-draft");
 
     const result = await saveToDB("published");
     
     if (result?.blog?.slug) {
-      // Clear draft from localStorage
-      localStorage.removeItem("blog-draft");
       showToast("Blog published successfully! 🎉", "success");
       // Redirect to the published blog
       router.push(`/blog/${result.blog.slug}`);
