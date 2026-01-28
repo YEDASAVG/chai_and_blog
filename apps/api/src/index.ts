@@ -16,6 +16,7 @@ import { clerkMiddleware } from "@clerk/express";
 import { dbConnect } from "./lib/db.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import blogRoutes from "./routes/blogs.js";
+import feedRoutes from "./routes/feed.js";
 import profileRoutes from "./routes/profile.js";
 import userRoutes from "./routes/user.js";
 import uploadRoutes from "./routes/upload.js";
@@ -25,9 +26,36 @@ const PORT = process.env.PORT || 4000;
 
 // Security middleware
 app.use(helmet());
+
+// CORS - Allow web frontend and mobile app
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:3000",
+  // Expo development
+  /^exp:\/\//,
+  /^https?:\/\/.*\.exp\.direct/,
+  /^https?:\/\/localhost/,
+  // Production mobile (adjust as needed)
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+      
+      // Check if origin matches allowed patterns
+      const isAllowed = allowedOrigins.some((allowed) => {
+        if (typeof allowed === "string") return origin === allowed;
+        if (allowed instanceof RegExp) return allowed.test(origin);
+        return false;
+      });
+      
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -46,6 +74,7 @@ app.get("/health", (req, res) => {
 
 // API routes
 app.use("/api/v1/blogs", blogRoutes);
+app.use("/api/v1/feed", feedRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/upload", uploadRoutes);

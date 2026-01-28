@@ -1,0 +1,56 @@
+/* Tailwind CSS v4 imports */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+/* Platform-specific font families */
+@media android {
+  :root {
+    --font-mono: monospace;
+    --font-rounded: normal;
+    --font-serif: serif;
+    --font-sans: normal;
+  }
+}
+
+@media ios {
+  :root {
+    --font-mono: ui-monospace;
+    --font-serif: ui-serif;
+    --font-sans: system-ui;
+    --font-rounded: ui-rounded;
+  }
+}
+
+/* ChaiAndBlog Brand Colors - matching your web theme */
+@layer theme {
+  @theme {
+    /* Primary orange */
+    --color-primary: #f97316;
+    --color-primary-hover: #ea580c;
+    
+    /* Dark background (matching web) */
+    --color-background: #0a0a0a;
+    --color-surface: #1a1a1a;
+    --color-surface-2: #262626;
+    
+    /* Border colors */
+    --color-border: #374151;
+    --color-border-light: #4b5563;
+    
+    /* Text colors */
+    --color-text: #ffffff;
+    --color-text-secondary: #9ca3af;
+    --color-text-muted: #6b7280;
+    
+    /* Status colors */
+    --color-success: #22c55e;
+    --color-error: #ef4444;
+    --color-warning: #eab308;
+  }
+}
+
+/* Dark mode is default for ChaiAndBlog */
+:root {
+  color-scheme: dark;
+}
