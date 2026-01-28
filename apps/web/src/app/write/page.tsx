@@ -52,6 +52,17 @@ export default function WritePage() {
     contentRef.current = content;
   }, [content]);
 
+  // Warn before leaving with unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if ((title || contentRef.current) && !isPublishingRef.current) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [title]);
+
   // Auto-resize title textarea when title changes (including on load)
   useEffect(() => {
     if (titleRef.current) {

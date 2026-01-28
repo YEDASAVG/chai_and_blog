@@ -207,7 +207,7 @@ export default async function FeedPage({
       {blogs.length === 0 ? (
         <div className="bg-gray-800/30 border border-gray-800 rounded-xl p-12 text-center">
           <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg data-lingo-skip className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" data-lingo-skip className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
             </svg>
           </div>
@@ -330,7 +330,7 @@ function getPreviewText(content: { content?: Array<{ type: string; content?: Arr
     if (text.length > 200) break;
   }
 
-  return text.trim().slice(0, 200) || "No preview available...";
+  return text.trim().slice(0, 200) || "No preview available…";
 }
 
 // Helper: Estimate read time from content

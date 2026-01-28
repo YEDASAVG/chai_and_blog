@@ -1,6 +1,6 @@
 export default function ProfileLoading() {
   return (
-    <div className="max-w-2xl animate-pulse">
+    <div className="max-w-2xl animate-pulse motion-reduce:animate-none" role="status" aria-label="Loading profile">
       {/* Header Skeleton */}
       <div className="flex items-center justify-between mb-2">
         <div className="h-8 bg-gray-800 rounded w-44" />

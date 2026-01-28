@@ -1,6 +1,6 @@
 export default function DashboardPageLoading() {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse motion-reduce:animate-none" role="status" aria-label="Loading dashboard">
       {/* Welcome Section Skeleton */}
       <div className="mb-8">
         <div className="h-9 bg-gray-800 rounded-lg w-72 mb-2" />

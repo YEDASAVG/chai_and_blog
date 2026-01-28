@@ -1,6 +1,6 @@
 export default function FeedLoading() {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse motion-reduce:animate-none" role="status" aria-label="Loading feed">
       {/* Header Skeleton */}
       <div className="mb-10">
         <div className="flex items-start justify-between gap-4 mb-2">
