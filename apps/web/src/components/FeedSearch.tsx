@@ -22,14 +22,18 @@ export default function FeedSearch({ initialQuery }: { initialQuery?: string }) 
 
   return (
     <div className="relative">
+      <label htmlFor="feed-search" className="sr-only">Search articles</label>
       <input
-        type="text"
+        id="feed-search"
+        type="search"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search articles..."
+        placeholder="Search articles…"
+        autoComplete="off"
         className="w-64 bg-gray-800/50 border border-gray-700 rounded-lg pl-10 pr-10 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#f97316] focus:ring-1 focus:ring-[#f97316] transition-colors"
       />
       <svg
+        aria-hidden="true"
         className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
         fill="none"
         stroke="currentColor"
@@ -46,9 +50,10 @@ export default function FeedSearch({ initialQuery }: { initialQuery?: string }) 
         <button
           type="button"
           onClick={() => setQuery("")}
+          aria-label="Clear search"
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg aria-hidden="true" className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>

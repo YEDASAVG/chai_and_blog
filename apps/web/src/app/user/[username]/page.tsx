@@ -5,6 +5,9 @@ import dbConnect from "@/lib/db";
 import User from "@/models/User";
 import Blog from "@/models/Blog";
 
+// Hoisted regex for word splitting (avoids re-creation on each call)
+const WHITESPACE_REGEX = /\s+/;
+
 interface UserProfile {
   name: string;
   username: string;
@@ -41,7 +44,7 @@ async function getUser(username: string): Promise<UserProfile | null> {
     // Calculate reading time for each blog
     const blogsWithReadingTime = blogs.map((blog) => {
       const text = JSON.stringify(blog.content || "");
-      const words = text.split(/\s+/).length;
+      const words = text.split(WHITESPACE_REGEX).length;
       const readingTime = Math.max(1, Math.ceil(words / 200));
       return {
         title: blog.title,

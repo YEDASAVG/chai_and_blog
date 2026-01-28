@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,6 +8,9 @@ import Blog from "@/models/Blog";
 import User from "@/models/User";
 import CopyLinkButton from "@/components/CopyLinkButton";
 import BlogContent from "@/components/BlogContent";
+
+// Hoisted regex for word splitting (avoids re-creation on each call)
+const WHITESPACE_REGEX = /\s+/;
 
 // Enable ISR - revalidate every 60 seconds for fresh content
 export const revalidate = 60;
@@ -23,8 +27,8 @@ export async function generateStaticParams() {
   }));
 }
 
-// Fetch blog data
-async function getBlog(slug: string) {
+// Fetch blog data - cached per request for deduplication
+const getBlog = cache(async (slug: string) => {
   await dbConnect();
   const blog = await Blog.findOne({ slug, status: "published" }).lean();
   
@@ -32,39 +36,71 @@ async function getBlog(slug: string) {
     return null;
   }
   
-  // If authorName or authorImage is not set, fetch from Clerk
+  // If author info is complete, return immediately (fast path)
+  if (blog.authorName && blog.authorImage && blog.authorUsername) {
+    return {
+      id: blog._id.toString(),
+      title: blog.title,
+      slug: blog.slug,
+      content: blog.content,
+      authorId: blog.authorId,
+      authorName: blog.authorName,
+      authorImage: blog.authorImage,
+      authorUsername: blog.authorUsername,
+      publishedAt: blog.publishedAt?.toISOString() || blog.createdAt.toISOString(),
+    };
+  }
+  
+  // Need to fetch missing author info - run DB and Clerk lookups in parallel
   let authorName = blog.authorName;
   let authorImage = blog.authorImage;
   let authorUsername = blog.authorUsername;
   
-  // First try to get username from our User model
-  if (!authorUsername && blog.authorId) {
-    try {
-      const dbUser = await User.findOne({ clerkId: blog.authorId }).lean();
-      if (dbUser) {
-        authorUsername = dbUser.username;
-      }
-    } catch (error) {
-      console.error("Failed to fetch user from DB:", error);
-    }
+  const needsDbLookup = !authorUsername || !authorName || !authorImage;
+  const needsClerkLookup = !authorName; // Only if name is missing after considering DB
+  
+  // Start both lookups in parallel
+  const [dbUserResult, clerkResult] = await Promise.all([
+    needsDbLookup && blog.authorId
+      ? User.findOne({ clerkId: blog.authorId }).lean().catch((error) => {
+          console.error("Failed to fetch user from DB:", error);
+          return null;
+        })
+      : Promise.resolve(null),
+    // Pre-fetch Clerk client (we'll use it conditionally after DB result)
+    needsClerkLookup && blog.authorId
+      ? clerkClient().then(clerk => clerk.users.getUser(blog.authorId)).catch((error) => {
+          console.error("Failed to fetch author from Clerk:", error);
+          return null;
+        })
+      : Promise.resolve(null),
+  ]);
+  
+  // Apply DB user info first
+  if (dbUserResult) {
+    authorUsername = authorUsername || dbUserResult.username;
+    authorName = authorName || dbUserResult.name;
+    authorImage = authorImage || dbUserResult.avatar;
   }
   
-  if ((!authorName || !authorImage) && blog.authorId) {
-    try {
-      const clerk = await clerkClient();
-      const user = await clerk.users.getUser(blog.authorId);
-      authorName = authorName || (user.firstName 
-        ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
-        : user.username || "Anonymous");
-      authorImage = authorImage || user.imageUrl || undefined;
-      authorUsername = authorUsername || user.username || undefined;
-      
-      // Update the blog with author info for future requests
-      await Blog.updateOne({ _id: blog._id }, { authorName, authorImage, authorUsername });
-    } catch (error) {
-      console.error("Failed to fetch author info:", error);
-      authorName = authorName || "Anonymous";
-    }
+  // Apply Clerk info only if still needed
+  if (!authorName && clerkResult) {
+    authorName = clerkResult.firstName 
+      ? `${clerkResult.firstName}${clerkResult.lastName ? ` ${clerkResult.lastName}` : ""}`
+      : clerkResult.username || "Anonymous";
+    authorImage = authorImage || clerkResult.imageUrl || undefined;
+    authorUsername = authorUsername || clerkResult.username || undefined;
+  }
+  
+  // Fallback
+  authorName = authorName || "Anonymous";
+  
+  // Update blog with author info for future requests (fire and forget - don't block response)
+  if (authorName !== blog.authorName || authorImage !== blog.authorImage || authorUsername !== blog.authorUsername) {
+    Blog.updateOne(
+      { _id: blog._id }, 
+      { authorName, authorImage, authorUsername }
+    ).catch(() => {}); // Ignore errors, don't block
   }
   
   return {
@@ -73,12 +109,12 @@ async function getBlog(slug: string) {
     slug: blog.slug,
     content: blog.content,
     authorId: blog.authorId,
-    authorName: authorName || "Anonymous",
+    authorName,
     authorImage: authorImage || null,
     authorUsername: authorUsername || null,
     publishedAt: blog.publishedAt?.toISOString() || blog.createdAt.toISOString(),
   };
-}
+});
 
 // Calculate read time
 function getReadTime(content: object): number {
@@ -89,7 +125,7 @@ function getReadTime(content: object): number {
   };
   
   const text = getText(content as { content?: object[] });
-  const words = text.split(/\s+/).filter(Boolean).length;
+  const words = text.split(WHITESPACE_REGEX).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 200));
 }
 

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { clerkClient } from "@clerk/nextjs/server";
@@ -6,13 +7,19 @@ import Blog from "@/models/Blog";
 import User from "@/models/User";
 import FeedSearch from "@/components/FeedSearch";
 
+// Hoisted regex for escaping special characters (avoids re-creation on each call)
+const REGEX_SPECIAL_CHARS = /[.*+?^${}()|[\]\\]/g;
+
+// Hoisted regex for word splitting
+const WHITESPACE_REGEX = /\s+/;
+
 // Helper: Escape regex special characters to prevent ReDoS attacks
 function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return str.replace(REGEX_SPECIAL_CHARS, '\\$&');
 }
 
-// Fetch published blogs with pagination, search, and author info
-async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
+// Fetch published blogs with pagination, search, and author info - cached per request
+const getPublishedBlogs = cache(async (cursor?: string, search?: string, limit = 10) => {
   await dbConnect();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,58 +48,122 @@ async function getPublishedBlogs(cursor?: string, search?: string, limit = 10) {
   const items = hasMore ? blogs.slice(0, limit) : blogs;
   const nextCursor = hasMore ? items[items.length - 1]._id?.toString() : null;
 
-  // Fetch author info for blogs - prefer DB over Clerk API
-  const blogsWithAuthors = await Promise.all(
-    items.map(async (blog) => {
-      let authorUsername = blog.authorUsername;
-      let authorName = blog.authorName;
-      let authorImage = blog.authorImage;
+  // Collect author IDs that need fetching (missing authorName)
+  const authorIdsNeedingInfo = items
+    .filter(blog => !blog.authorUsername || !blog.authorName || !blog.authorImage)
+    .map(blog => blog.authorId);
+  
+  // Batch fetch all users from DB in a single query (eliminates N queries → 1 query)
+  const uniqueAuthorIds = [...new Set(authorIdsNeedingInfo)];
+  const dbUsersMap = new Map<string, { username?: string; name?: string; avatar?: string }>();
+  
+  if (uniqueAuthorIds.length > 0) {
+    try {
+      const dbUsers = await User.find({ clerkId: { $in: uniqueAuthorIds } }).lean();
+      for (const user of dbUsers) {
+        dbUsersMap.set(user.clerkId, {
+          username: user.username,
+          name: user.name,
+          avatar: user.avatar,
+        });
+      }
+    } catch (error) {
+      console.error("Failed to batch fetch users from DB:", error);
+    }
+  }
+
+  // Identify blogs still missing authorName after DB lookup (need Clerk API)
+  const blogsNeedingClerk = items.filter(blog => {
+    const dbUser = dbUsersMap.get(blog.authorId);
+    const hasName = blog.authorName || dbUser?.name;
+    return !hasName;
+  });
+
+  // Batch fetch from Clerk only for those that still need it
+  const clerkUsersMap = new Map<string, { name: string; image?: string; username?: string }>();
+  
+  if (blogsNeedingClerk.length > 0) {
+    const clerkIdsToFetch = [...new Set(blogsNeedingClerk.map(b => b.authorId))];
+    try {
+      const clerk = await clerkClient();
+      // Fetch all users in parallel (not sequentially)
+      const clerkUsers = await Promise.all(
+        clerkIdsToFetch.map(id => 
+          clerk.users.getUser(id).catch(() => null)
+        )
+      );
       
-      // Try to get info from our User model first (faster and more reliable)
-      if (!authorUsername || !authorName || !authorImage) {
-        try {
-          const dbUser = await User.findOne({ clerkId: blog.authorId }).lean();
-          if (dbUser) {
-            authorUsername = authorUsername || dbUser.username;
-            authorName = authorName || dbUser.name;
-            authorImage = authorImage || dbUser.avatar;
-          }
-        } catch (error) {
-          console.error("Failed to fetch user from DB:", error);
+      for (let i = 0; i < clerkIdsToFetch.length; i++) {
+        const user = clerkUsers[i];
+        if (user) {
+          clerkUsersMap.set(clerkIdsToFetch[i], {
+            name: user.firstName 
+              ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
+              : user.username || "Anonymous",
+            image: user.imageUrl || undefined,
+            username: user.username || undefined,
+          });
         }
       }
-      
-      // Only call Clerk if we still don't have author info and it's needed
-      if (!authorName) {
-        try {
-          const clerk = await clerkClient();
-          const user = await clerk.users.getUser(blog.authorId);
-          authorName = user.firstName 
-            ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
-            : user.username || "Anonymous";
-          authorImage = authorImage || user.imageUrl || undefined;
-          authorUsername = authorUsername || user.username || undefined;
-        } catch (error) {
-          // User might not exist in Clerk anymore - use fallback
-          console.error("Failed to fetch author from Clerk:", error);
-          authorName = "Anonymous";
-        }
-      }
-      
-      // Update the blog in DB for future requests if any field was missing
-      if (authorName !== blog.authorName || authorImage !== blog.authorImage || authorUsername !== blog.authorUsername) {
-        await Blog.updateOne(
-          { _id: blog._id },
-          { authorName, authorImage, authorUsername }
-        ).catch(() => {}); // Ignore update errors
-      }
-      
-      return { ...blog, authorName, authorImage, authorUsername };
-    })
-  );
+    } catch (error) {
+      console.error("Failed to batch fetch users from Clerk:", error);
+    }
+  }
+
+  // Merge author info and track blogs needing updates
+  const blogsToUpdate: Array<{ id: string; authorName: string; authorImage?: string; authorUsername?: string }> = [];
+  
+  const blogsWithAuthors = items.map(blog => {
+    let authorUsername = blog.authorUsername;
+    let authorName = blog.authorName;
+    let authorImage = blog.authorImage;
+
+    // Apply DB user info
+    const dbUser = dbUsersMap.get(blog.authorId);
+    if (dbUser) {
+      authorUsername = authorUsername || dbUser.username;
+      authorName = authorName || dbUser.name;
+      authorImage = authorImage || dbUser.avatar;
+    }
+
+    // Apply Clerk user info if still missing
+    const clerkUser = clerkUsersMap.get(blog.authorId);
+    if (clerkUser && !authorName) {
+      authorName = clerkUser.name;
+      authorImage = authorImage || clerkUser.image;
+      authorUsername = authorUsername || clerkUser.username;
+    }
+
+    // Fallback
+    authorName = authorName || "Anonymous";
+
+    // Track if update needed
+    if (authorName !== blog.authorName || authorImage !== blog.authorImage || authorUsername !== blog.authorUsername) {
+      blogsToUpdate.push({
+        id: blog._id.toString(),
+        authorName,
+        authorImage,
+        authorUsername,
+      });
+    }
+
+    return { ...blog, authorName, authorImage, authorUsername };
+  });
+
+  // Batch update blogs that need author info cached (fire and forget)
+  if (blogsToUpdate.length > 0) {
+    Blog.bulkWrite(
+      blogsToUpdate.map(({ id, authorName, authorImage, authorUsername }) => ({
+        updateOne: {
+          filter: { _id: id },
+          update: { $set: { authorName, authorImage, authorUsername } },
+        },
+      }))
+    ).catch(() => {}); // Ignore update errors, don't block response
+  }
 
   return { blogs: blogsWithAuthors, nextCursor, hasMore };
-}
+});
 
 export default async function FeedPage({
   searchParams,
@@ -271,7 +342,7 @@ function getReadTime(content: { content?: Array<{ type: string; content?: Array<
   const countWords = (nodes: any[]) => {
     for (const node of nodes) {
       if (node.text) {
-        wordCount += node.text.split(/\s+/).length;
+        wordCount += node.text.split(WHITESPACE_REGEX).length;
       }
       if (node.content && Array.isArray(node.content)) {
         countWords(node.content);

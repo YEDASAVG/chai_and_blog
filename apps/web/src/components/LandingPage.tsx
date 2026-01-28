@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+// Direct imports to avoid loading entire lucide-react bundle (~200KB)
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import BookOpen from "lucide-react/dist/esm/icons/book-open";
 
 type LandingPageProps = {
   blogCount: number;
@@ -37,7 +39,7 @@ export default function LandingPage({ blogCount }: LandingPageProps) {
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {/* Orange Blob - Top Left */}
         <motion.div 
-          className="absolute top-[-15%] left-[-15%] w-[50vw] h-[50vw] rounded-full bg-[#f97316]/20 blur-[120px]"
+          className="absolute top-[-15%] left-[-15%] w-[50vw] h-[50vw] rounded-full bg-[#f97316]/20 blur-[120px] motion-reduce:animate-none"
           animate={{ 
             scale: [1, 1.15, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -46,7 +48,7 @@ export default function LandingPage({ blogCount }: LandingPageProps) {
         />
         {/* Purple Blob - Bottom Right */}
         <motion.div 
-          className="absolute bottom-[-15%] right-[-15%] w-[45vw] h-[45vw] rounded-full bg-purple-500/15 blur-[100px]"
+          className="absolute bottom-[-15%] right-[-15%] w-[45vw] h-[45vw] rounded-full bg-purple-500/15 blur-[100px] motion-reduce:animate-none"
           animate={{ 
             scale: [1, 1.2, 1],
             opacity: [0.25, 0.45, 0.25],
@@ -166,8 +168,9 @@ export default function LandingPage({ blogCount }: LandingPageProps) {
                   >
                     <Image
                       src={`https://i.pravatar.cc/150?img=${i}`}
-                      alt="User avatar"
+                      alt=""
                       fill
+                      sizes="40px"
                       className="object-cover"
                     />
                   </div>

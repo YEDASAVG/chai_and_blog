@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@clerk/nextjs";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { api, ApiError, type CreateBlogInput, type UpdateProfileInput } from "./api";
 
 /**
@@ -11,7 +11,7 @@ import { api, ApiError, type CreateBlogInput, type UpdateProfileInput } from "./
 export function useApi() {
   const { getToken } = useAuth();
 
-  // Blog operations
+  // Blog operations - memoized with getToken dependency
   const getBlogs = useCallback(
     async (status?: string) => {
       const token = await getToken();
@@ -58,11 +58,6 @@ export function useApi() {
     [getToken]
   );
 
-  // User operations (public - no auth needed)
-  const getUserByUsername = useCallback(async (username: string) => {
-    return api.getUserByUsername(username);
-  }, []);
-
   // Upload operations
   const uploadImage = useCallback(
     async (file: File) => {
@@ -72,16 +67,27 @@ export function useApi() {
     [getToken]
   );
 
-  return {
+  // Memoize the entire return object to prevent unnecessary re-renders
+  // when consuming components destructure the hook result
+  return useMemo(() => ({
     getBlogs,
     createOrUpdateBlog,
     getBlogById,
     deleteBlog,
     getProfile,
     updateProfile,
-    getUserByUsername,
+    // Public API - no auth needed, stable reference via api module
+    getUserByUsername: api.getUserByUsername.bind(api),
     uploadImage,
-  };
+  }), [
+    getBlogs,
+    createOrUpdateBlog,
+    getBlogById,
+    deleteBlog,
+    getProfile,
+    updateProfile,
+    uploadImage,
+  ]);
 }
 
 export { ApiError };

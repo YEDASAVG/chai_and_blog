@@ -31,6 +31,7 @@ export default function DashboardSidebar({
           }`}
         >
           <svg
+            aria-hidden="true"
             className="w-5 h-5"
             fill="none"
             stroke="currentColor"
@@ -50,6 +51,7 @@ export default function DashboardSidebar({
           className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-gray-800/30 rounded-lg transition-colors"
         >
           <svg
+            aria-hidden="true"
             className="w-5 h-5"
             fill="none"
             stroke="currentColor"
@@ -73,6 +75,7 @@ export default function DashboardSidebar({
           }`}
         >
           <svg
+            aria-hidden="true"
             className="w-5 h-5"
             fill="none"
             stroke="currentColor"
@@ -96,6 +99,7 @@ export default function DashboardSidebar({
           }`}
         >
           <svg
+            aria-hidden="true"
             className="w-5 h-5"
             fill="none"
             stroke="currentColor"

@@ -342,7 +342,7 @@ export default function Editor({
   }
 
   return (
-    <div className="editor-wrapper relative" ref={editorRef}>
+    <div className="editor-wrapper relative flex flex-col min-h-[calc(100vh-280px)]" ref={editorRef}>
       {/* Plus Menu - appears on empty lines */}
       {showPlusMenu && (
         <div
@@ -351,9 +351,12 @@ export default function Editor({
         >
           <button
             onClick={() => setPlusDropdownOpen(!plusDropdownOpen)}
+            aria-label="Insert content"
+            aria-expanded={plusDropdownOpen}
             className="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center text-gray-500 hover:border-[#f97316] hover:text-[#f97316] transition-colors"
           >
             <svg
+              aria-hidden="true"
               data-lingo-skip
               className={`w-5 h-5 transition-transform ${plusDropdownOpen ? "rotate-45" : ""}`}
               fill="none"
@@ -371,13 +374,15 @@ export default function Editor({
 
           {/* Dropdown Menu */}
           {plusDropdownOpen && (
-            <div className="absolute left-10 top-0 bg-[#1a1a1a] rounded-lg shadow-2xl border border-gray-800 p-1.5 flex gap-0.5">
+            <div role="menu" aria-label="Content options" className="absolute left-10 top-0 bg-[#1a1a1a] rounded-lg shadow-2xl border border-gray-800 p-1.5 flex gap-0.5">
               <button
                 onClick={addImage}
+                aria-label="Add image"
                 className="w-9 h-9 rounded-md flex items-center justify-center hover:bg-white/10 transition-colors group"
                 title="Add Image"
               >
                 <svg
+                  aria-hidden="true"
                   data-lingo-skip
                   className="w-[18px] h-[18px] text-gray-400 group-hover:text-white"
                   fill="none"
@@ -541,16 +546,25 @@ export default function Editor({
 
       {/* Video Input Modal */}
       {showVideoInput && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div 
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="video-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+          style={{ overscrollBehavior: "contain" }}
+        >
           <div className="bg-[#1a1a1a] rounded-xl shadow-2xl border border-gray-800 p-6 w-full max-w-md mx-4">
-            <h3 className="text-lg font-semibold text-white mb-4">Embed YouTube Video</h3>
+            <h3 id="video-modal-title" className="text-lg font-semibold text-white mb-4">Embed YouTube Video</h3>
+            <label htmlFor="video-url-input" className="sr-only">YouTube URL</label>
             <input
+              id="video-url-input"
               ref={videoInputRef}
-              type="text"
+              type="url"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
               onKeyDown={handleVideoKeyDown}
-              placeholder="Paste YouTube URL..."
+              placeholder="Paste YouTube URL…"
+              autoComplete="off"
               className="w-full bg-[#0a0a0a] text-white text-sm px-4 py-3 rounded-lg border border-gray-700 outline-none focus:border-[#f97316] placeholder-gray-500"
             />
             <p className="text-xs text-gray-500 mt-2">Example: https://youtube.com/watch?v=dQw4w9WgXcQ</p>
@@ -580,6 +594,8 @@ export default function Editor({
       {/* Bubble Menu - appears on text selection */}
       {showBubbleMenu && (
         <div
+          role="toolbar"
+          aria-label="Text formatting"
           className="absolute z-30 bg-[#1a1a1a] text-white rounded-lg shadow-2xl border border-gray-800 flex overflow-hidden"
           style={{
             top: bubbleMenuPos.top,
@@ -589,6 +605,8 @@ export default function Editor({
         >
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
+            aria-label="Bold"
+            aria-pressed={editor.isActive("bold")}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors ${
               editor.isActive("bold") ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
@@ -598,6 +616,8 @@ export default function Editor({
           </button>
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
+            aria-label="Italic"
+            aria-pressed={editor.isActive("italic")}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors ${
               editor.isActive("italic") ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
@@ -607,6 +627,8 @@ export default function Editor({
           </button>
           <button
             onClick={() => editor.chain().focus().toggleUnderline().run()}
+            aria-label="Underline"
+            aria-pressed={editor.isActive("underline")}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors ${
               editor.isActive("underline") ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
@@ -617,12 +639,14 @@ export default function Editor({
           <div className="w-px bg-gray-700"></div>
           <button
             onClick={openLinkInput}
+            aria-label="Insert link"
+            aria-pressed={editor.isActive("link")}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors ${
               editor.isActive("link") ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
             title="Link (Ctrl+K)"
           >
-            <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
             </svg>
           </button>
@@ -631,6 +655,8 @@ export default function Editor({
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
+            aria-label="Heading 1"
+            aria-pressed={editor.isActive("heading", { level: 1 })}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors text-sm font-medium ${
               editor.isActive("heading", { level: 1 }) ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
@@ -642,6 +668,8 @@ export default function Editor({
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
+            aria-label="Heading 2"
+            aria-pressed={editor.isActive("heading", { level: 2 })}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors text-sm font-medium ${
               editor.isActive("heading", { level: 2 }) ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
@@ -652,12 +680,14 @@ export default function Editor({
           <div className="w-px bg-gray-700"></div>
           <button
             onClick={() => editor.chain().focus().toggleCode().run()}
+            aria-label="Inline code"
+            aria-pressed={editor.isActive("code")}
             className={`px-3 py-2 hover:bg-gray-800 transition-colors ${
               editor.isActive("code") ? "bg-gray-800 text-[#f97316]" : "text-gray-300"
             }`}
             title="Inline Code"
           >
-            <svg data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" data-lingo-skip className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
           </button>
@@ -769,10 +799,12 @@ export default function Editor({
       )}
 
       {/* Editor Content */}
-      <EditorContent editor={editor} />
+      <div className="flex-1">
+        <EditorContent editor={editor} />
+      </div>
 
-      {/* Word count */}
-      <div className="text-right text-sm text-gray-600 mt-8 pt-8 border-t border-gray-800">
+      {/* Word count - pushed to bottom */}
+      <div className="text-right text-sm text-gray-600 mt-auto pt-8 border-t border-gray-800">
         {editor.storage.characterCount?.words() || 0} words
       </div>
     </div>

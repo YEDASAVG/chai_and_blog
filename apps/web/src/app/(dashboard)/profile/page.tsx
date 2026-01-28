@@ -124,7 +124,7 @@ export default function ProfilePage() {
           <input
             type="text"
             value={profile.name}
-            onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+            onChange={(e) => setProfile(prev => ({ ...prev, name: e.target.value }))}
             className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 focus:border-[#f97316]"
             placeholder="Your name"
           />
@@ -138,7 +138,7 @@ export default function ProfilePage() {
           </label>
           <textarea
             value={profile.bio}
-            onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
+            onChange={(e) => setProfile(prev => ({ ...prev, bio: e.target.value }))}
             maxLength={300}
             rows={3}
             className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 focus:border-[#f97316] resize-none"
@@ -166,7 +166,7 @@ export default function ProfilePage() {
             <input
               type="text"
               value={profile.github}
-              onChange={(e) => setProfile({ ...profile, github: e.target.value })}
+              onChange={(e) => setProfile(prev => ({ ...prev, github: e.target.value }))}
               className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 focus:border-[#f97316]"
               placeholder="github.com/username"
             />
@@ -182,7 +182,7 @@ export default function ProfilePage() {
             <input
               type="text"
               value={profile.linkedin}
-              onChange={(e) => setProfile({ ...profile, linkedin: e.target.value })}
+              onChange={(e) => setProfile(prev => ({ ...prev, linkedin: e.target.value }))}
               className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 focus:border-[#f97316]"
               placeholder="linkedin.com/in/username"
             />
@@ -198,7 +198,7 @@ export default function ProfilePage() {
             <input
               type="text"
               value={profile.twitter}
-              onChange={(e) => setProfile({ ...profile, twitter: e.target.value })}
+              onChange={(e) => setProfile(prev => ({ ...prev, twitter: e.target.value }))}
               className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f97316]/50 focus:border-[#f97316]"
               placeholder="x.com/username"
             />

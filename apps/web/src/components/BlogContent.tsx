@@ -191,6 +191,8 @@ function renderContent(content: any): React.ReactNode {
             <img
               src={imgSrc}
               alt={(node.attrs?.alt as string) || ""}
+              width={800}
+              height={450}
               className="max-w-full h-auto rounded-lg mx-auto"
               loading="lazy"
             />
@@ -207,6 +209,7 @@ function renderContent(content: any): React.ReactNode {
           <div className="my-8 aspect-video">
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${extractYouTubeId(node.attrs?.src as string)}`}
+              title="YouTube video player"
               className="w-full h-full rounded-lg"
               allowFullScreen
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

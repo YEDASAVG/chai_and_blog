@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4, Lora, Space_Grotesk } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ToastProvider } from "@/components/Toast";
+import NavigationProgress from "@/components/NavigationProgress";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,6 +55,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} ${lora.variable} ${spaceGrotesk.variable} antialiased`}
         suppressHydrationWarning
       >
+        <NavigationProgress />
         <ClerkProvider>
           <ToastProvider>
             {children}

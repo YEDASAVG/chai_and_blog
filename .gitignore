@@ -65,3 +65,6 @@ Thumbs.db
 
 # Symlinked env files
 apps/*/.env
+
+.agents
+.github

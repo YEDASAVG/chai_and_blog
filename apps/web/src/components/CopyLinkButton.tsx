@@ -23,6 +23,7 @@ export default function CopyLinkButton({ slug }: CopyLinkButtonProps) {
     <button
       onClick={handleCopy}
       className="p-2 text-gray-400 hover:text-[#f97316] hover:bg-gray-800 rounded-lg transition-colors"
+      aria-label={copied ? "Link copied" : "Copy link to clipboard"}
       title={copied ? "Copied!" : "Copy link"}
     >
       {copied ? (
