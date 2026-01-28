@@ -3,9 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-// Direct imports to avoid loading entire lucide-react bundle (~200KB)
-import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
-import BookOpen from "lucide-react/dist/esm/icons/book-open";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 type LandingPageProps = {
   blogCount: number;
