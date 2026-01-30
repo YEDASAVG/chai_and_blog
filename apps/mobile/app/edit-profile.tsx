@@ -23,11 +23,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useProfile } from "../src/lib/hooks";
+import { useProfileQuery, useUpdateProfileMutation } from "../src/lib/queries";
 
 export default function EditProfileScreen() {
   const router = useRouter();
-  const { profile, loading, saving, error, loadProfile, updateProfile } = useProfile();
+  
+  // TanStack Query
+  const { data: profile, isLoading: loading, error } = useProfileQuery();
+  const { mutateAsync: updateProfile, isPending: saving } = useUpdateProfileMutation();
 
   // Form state
   const [name, setName] = useState("");
@@ -36,12 +39,7 @@ export default function EditProfileScreen() {
   const [twitter, setTwitter] = useState("");
   const [linkedin, setLinkedin] = useState("");
 
-  // Load profile on mount
-  useEffect(() => {
-    loadProfile();
-  }, []);
-
-  // Populate form when profile loads
+  // Populate form when profile loads (TanStack Query auto-fetches)
   useEffect(() => {
     if (profile) {
       setName(profile.name || "");
@@ -130,7 +128,7 @@ export default function EditProfileScreen() {
           {/* Error */}
           {error && (
             <View style={styles.errorBanner}>
-              <Text style={styles.errorText}>{error}</Text>
+              <Text style={styles.errorText}>{error.message}</Text>
             </View>
           )}
 

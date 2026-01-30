@@ -25,11 +25,11 @@ import { useAuth } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useSaveBlog } from "../../src/lib/hooks";
+import { useSaveBlogMutation } from "../../src/lib/queries";
 
 export default function WriteScreen() {
   const { isSignedIn } = useAuth();
-  const { saveBlog, saving, error: saveError } = useSaveBlog();
+  const { mutateAsync: saveBlog, isPending: saving, error: saveError } = useSaveBlogMutation();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
@@ -118,7 +118,7 @@ export default function WriteScreen() {
         },
       ]);
     } catch (err) {
-      Alert.alert("Error", saveError || "Failed to publish. Please try again.");
+      Alert.alert("Error", saveError?.message || "Failed to publish. Please try again.");
     }
   };
 
@@ -157,7 +157,7 @@ export default function WriteScreen() {
         },
       ]);
     } catch (err) {
-      Alert.alert("Error", saveError || "Failed to save draft. Please try again.");
+      Alert.alert("Error", saveError?.message || "Failed to save draft. Please try again.");
     }
   };
 

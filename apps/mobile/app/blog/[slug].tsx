@@ -9,7 +9,6 @@
  * - Smooth scrolling
  */
 
-import { useEffect } from "react";
 import {
   View,
   Text,
@@ -26,7 +25,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useBlogDetail } from "../../src/lib/hooks";
+import { useBlogQuery } from "../../src/lib/queries";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -68,13 +67,9 @@ function extractAllText(content: any): string {
 export default function BlogDetailScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
   const router = useRouter();
-  const { blog, loading, error, loadBlog } = useBlogDetail(slug || "");
-
-  useEffect(() => {
-    if (slug) {
-      loadBlog();
-    }
-  }, [slug]);
+  
+  // TanStack Query - auto-fetches, caches, handles loading/error
+  const { data: blog, isLoading: loading, error } = useBlogQuery(slug || "");
 
   const handleShare = async () => {
     if (!blog) return;
@@ -335,7 +330,7 @@ export default function BlogDetailScreen() {
         <Stack.Screen options={{ headerShown: false }} />
         <SafeAreaView style={styles.errorContainer}>
           <Ionicons name="alert-circle-outline" size={64} color="#f97316" />
-          <Text style={styles.errorText}>{error || "Article not found"}</Text>
+          <Text style={styles.errorText}>{error?.message || "Article not found"}</Text>
           <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
             <Text style={styles.backBtnText}>Go Back</Text>
           </TouchableOpacity>

@@ -2,14 +2,14 @@
  * Feed Screen - Stitch-inspired Dark Premium Design
  * 
  * Features:
- * - Real data from backend API
+ * - Real data from backend API via TanStack Query
  * - Glassmorphism search bar with live search
  * - Premium blog cards with cover images
  * - Pull-to-refresh and infinite scroll
- * - Loading and error states
+ * - Automatic caching and background refetching
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   View,
   Text,
@@ -26,7 +26,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { useRouter } from "expo-router";
-import { useFeed } from "../../src/lib/hooks";
+import { useFeedQuery } from "../../src/lib/queries";
 import type { FeedBlog } from "../../src/lib/api";
 
 // Category colors for visual interest
@@ -65,31 +65,30 @@ function estimateReadTime(content: string): string {
 export default function FeedScreen() {
   const router = useRouter();
   const [localSearch, setLocalSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+
+  // TanStack Query - handles caching, loading, errors, pagination
   const {
-    blogs,
-    loading,
-    refreshing,
+    data,
+    isLoading,
+    isFetching,
+    isFetchingNextPage,
+    isRefetching,
     error,
-    hasMore,
-    loadBlogs,
-    refresh,
-    loadMore,
-    search,
-  } = useFeed({ initialLimit: 10 });
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = useFeedQuery(debouncedSearch || undefined);
 
-  // Load blogs on mount
-  useEffect(() => {
-    loadBlogs();
-  }, []);
+  // Flatten paginated data into single array
+  const blogs = useMemo(() => {
+    return data?.pages.flatMap((page) => page.blogs) ?? [];
+  }, [data]);
 
-  // Debounced search
+  // Debounced search - waits 500ms after typing stops
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (localSearch !== "") {
-        search(localSearch);
-      } else {
-        loadBlogs();
-      }
+      setDebouncedSearch(localSearch);
     }, 500);
     return () => clearTimeout(timer);
   }, [localSearch]);
@@ -178,7 +177,7 @@ export default function FeedScreen() {
   };
 
   const renderFooter = () => {
-    if (!loading || blogs.length === 0) return null;
+    if (!isFetchingNextPage || blogs.length === 0) return null;
     return (
       <View style={styles.loadingFooter}>
         <ActivityIndicator color="#f97316" />
@@ -212,7 +211,7 @@ export default function FeedScreen() {
               value={localSearch}
               onChangeText={setLocalSearch}
               returnKeyType="search"
-              onSubmitEditing={() => search(localSearch)}
+              onSubmitEditing={() => setDebouncedSearch(localSearch)}
             />
             {localSearch.length > 0 && (
               <TouchableOpacity onPress={() => setLocalSearch("")}>
@@ -231,10 +230,10 @@ export default function FeedScreen() {
               onPress={() => {
                 if (cat === "All") {
                   setLocalSearch("");
-                  loadBlogs();
+                  setDebouncedSearch("");
                 } else {
                   setLocalSearch(cat);
-                  search(cat);
+                  setDebouncedSearch(cat);
                 }
               }}
             >
@@ -247,18 +246,18 @@ export default function FeedScreen() {
       </SafeAreaView>
 
       {/* Error State */}
-      {error && !loading && (
+      {error && !isLoading && (
         <View style={styles.errorContainer}>
           <Ionicons name="cloud-offline-outline" size={48} color="#f97316" />
-          <Text style={styles.errorText}>{error}</Text>
-          <TouchableOpacity style={styles.retryBtn} onPress={() => loadBlogs()}>
+          <Text style={styles.errorText}>{error.message}</Text>
+          <TouchableOpacity style={styles.retryBtn} onPress={() => refetch()}>
             <Text style={styles.retryBtnText}>Retry</Text>
           </TouchableOpacity>
         </View>
       )}
 
       {/* Initial Loading */}
-      {loading && blogs.length === 0 && !error && (
+      {isLoading && blogs.length === 0 && !error && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#f97316" />
           <Text style={styles.loadingText}>Loading articles...</Text>
@@ -266,7 +265,7 @@ export default function FeedScreen() {
       )}
 
       {/* Blog List - Virtualized for performance */}
-      {(!loading || blogs.length > 0) && !error && (
+      {(!isLoading || blogs.length > 0) && !error && (
         <FlatList
           data={blogs}
           renderItem={renderBlogCard}
@@ -276,12 +275,16 @@ export default function FeedScreen() {
           contentInsetAdjustmentBehavior="automatic"
           refreshControl={
             <RefreshControl
-              refreshing={refreshing}
-              onRefresh={refresh}
+              refreshing={isRefetching && !isFetchingNextPage}
+              onRefresh={() => refetch()}
               tintColor="#f97316"
             />
           }
-          onEndReached={loadMore}
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
           onEndReachedThreshold={0.5}
           ListFooterComponent={renderFooter}
           ListEmptyComponent={

@@ -19,6 +19,7 @@
 import "../src/global.css";
 
 import { ClerkProvider } from "@clerk/clerk-expo";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Slot, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { tokenCache } from "@/lib/token-cache";
@@ -38,6 +39,21 @@ if (!CLERK_PUBLISHABLE_KEY) {
   );
 }
 
+// Create QueryClient instance OUTSIDE component
+// This ensures the cache persists across re-renders
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Data considered fresh for 5 minutes
+      staleTime: 5 * 60 * 1000,
+      // Keep unused data in cache for 30 minutes
+      gcTime: 30 * 60 * 1000,
+      // Retry failed requests 2 times
+      retry: 2,
+    },
+  },
+});
+
 export default function RootLayout() {
   // Hide splash screen after layout mounts
   useEffect(() => {
@@ -53,13 +69,15 @@ export default function RootLayout() {
       {/* Light icons on dark background */}
       <StatusBar style="light" />
 
-      <ClerkProvider
-        publishableKey={CLERK_PUBLISHABLE_KEY}
-        tokenCache={tokenCache}
-      >
-        {/* Slot renders the current route's component */}
-        <Slot />
-      </ClerkProvider>
+      <QueryClientProvider client={queryClient}>
+        <ClerkProvider
+          publishableKey={CLERK_PUBLISHABLE_KEY}
+          tokenCache={tokenCache}
+        >
+          {/* Slot renders the current route's component */}
+          <Slot />
+        </ClerkProvider>
+      </QueryClientProvider>
     </>
   );
 }

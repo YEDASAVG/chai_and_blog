@@ -21,12 +21,10 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuth } from "@clerk/clerk-expo";
 import { useRouter, useLocalSearchParams, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { api, ApiError } from "../../src/lib/api";
-import { useSaveBlog } from "../../src/lib/hooks";
+import { useBlogForEditQuery, useSaveBlogMutation, useDeleteBlogMutation } from "../../src/lib/queries";
 
 // Extract text from TipTap JSON content
 function extractTextFromContent(content: any): string {
@@ -54,43 +52,26 @@ function extractTextFromContent(content: any): string {
 export default function EditBlogScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { getToken } = useAuth();
-  const { saveBlog, saving } = useSaveBlog();
+  
+  // TanStack Query
+  const { data: blogData, isLoading: loading, error } = useBlogForEditQuery(id || "");
+  const { mutateAsync: saveBlog, isPending: saving } = useSaveBlogMutation();
+  const { mutateAsync: deleteBlogMutation } = useDeleteBlogMutation();
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
 
-  // Load blog on mount
+  // Populate form when blog loads
   useEffect(() => {
-    if (id) {
-      loadBlog();
+    if (blogData) {
+      setTitle(blogData.title || "");
+      setContent(extractTextFromContent(blogData.content));
+      setDescription(blogData.description || "");
+      setStatus(blogData.publishedAt ? "published" : "draft");
     }
-  }, [id]);
-
-  const loadBlog = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const token = await getToken();
-      if (!token) throw new ApiError("Not authenticated", "UNAUTHORIZED", 401);
-      
-      const result = await api.getBlogForEdit(token, id!);
-      const blog = result.blog;
-      
-      setTitle(blog.title || "");
-      setContent(extractTextFromContent(blog.content));
-      setDescription(blog.description || "");
-      setStatus(blog.publishedAt ? "published" : "draft");
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to load blog");
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [blogData]);
 
   const handleSave = async (newStatus: "draft" | "published") => {
     if (!title.trim()) {
@@ -129,7 +110,7 @@ export default function EditBlogScreen() {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     Alert.alert(
       "Delete Post",
       "Are you sure you want to delete this post? This cannot be undone.",
@@ -140,9 +121,7 @@ export default function EditBlogScreen() {
           style: "destructive",
           onPress: async () => {
             try {
-              const token = await getToken();
-              if (!token) throw new Error("Not authenticated");
-              await api.deleteBlog(token, id!);
+              await deleteBlogMutation(id!);
               Alert.alert("Deleted", "Your post has been deleted", [
                 { text: "OK", onPress: () => router.replace("/my-posts") },
               ]);
@@ -176,7 +155,7 @@ export default function EditBlogScreen() {
         <Stack.Screen options={{ headerShown: false }} />
         <SafeAreaView style={styles.errorContainer}>
           <Ionicons name="alert-circle-outline" size={64} color="#f97316" />
-          <Text style={styles.errorText}>{error}</Text>
+          <Text style={styles.errorText}>{error.message}</Text>
           <TouchableOpacity style={styles.retryBtn} onPress={() => router.back()}>
             <Text style={styles.retryBtnText}>Go Back</Text>
           </TouchableOpacity>

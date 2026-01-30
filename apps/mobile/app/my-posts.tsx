@@ -7,7 +7,7 @@
  * - Edit/delete functionality
  */
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -20,9 +20,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useMyBlogs } from "../src/lib/hooks";
-import { api, ApiError } from "../src/lib/api";
-import { useAuth } from "@clerk/clerk-expo";
+import { useMyBlogsQuery, useDeleteBlogMutation } from "../src/lib/queries";
 
 type FilterStatus = "all" | "published" | "draft";
 
@@ -41,21 +39,18 @@ function formatRelativeTime(dateString: string): string {
 
 export default function MyPostsScreen() {
   const router = useRouter();
-  const { getToken } = useAuth();
-  const { blogs, loading, error, loadMyBlogs } = useMyBlogs();
   const [filter, setFilter] = useState<FilterStatus>("all");
-  const [deleting, setDeleting] = useState<string | null>(null);
+  
+  // TanStack Query - handles caching, loading, refetching
+  const { data: blogs = [], isLoading: loading, error, refetch } = useMyBlogsQuery();
+  const { mutate: deleteBlog, isPending: deleting, variables: deletingId } = useDeleteBlogMutation();
 
-  useEffect(() => {
-    loadMyBlogs();
-  }, []);
+  const filteredBlogs = useMemo(() => 
+    blogs.filter((blog) => filter === "all" || blog.status === filter),
+    [blogs, filter]
+  );
 
-  const filteredBlogs = blogs.filter((blog) => {
-    if (filter === "all") return true;
-    return blog.status === filter;
-  });
-
-  const handleDelete = async (id: string, title: string) => {
+  const handleDelete = (id: string, title: string) => {
     Alert.alert(
       "Delete Post",
       `Are you sure you want to delete "${title}"? This cannot be undone.`,
@@ -64,22 +59,7 @@ export default function MyPostsScreen() {
         {
           text: "Delete",
           style: "destructive",
-          onPress: async () => {
-            try {
-              setDeleting(id);
-              const token = await getToken();
-              if (!token) throw new Error("Not authenticated");
-              await api.deleteBlog(token, id);
-              loadMyBlogs(); // Refresh list
-            } catch (err) {
-              Alert.alert(
-                "Error",
-                err instanceof ApiError ? err.message : "Failed to delete post"
-              );
-            } finally {
-              setDeleting(null);
-            }
-          },
+          onPress: () => deleteBlog(id),
         },
       ]
     );
@@ -112,25 +92,25 @@ export default function MyPostsScreen() {
         </Text>
       </TouchableOpacity>
 
-      <View style={styles.blogActions}>
-        <TouchableOpacity
-          style={styles.actionBtn}
-          onPress={() => router.push(`/edit/${item._id}`)}
-        >
-          <Ionicons name="pencil" size={18} color="#888" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.actionBtn}
-          onPress={() => handleDelete(item._id, item.title)}
-          disabled={deleting === item._id}
-        >
-          {deleting === item._id ? (
-            <ActivityIndicator size="small" color="#ef4444" />
-          ) : (
-            <Ionicons name="trash-outline" size={18} color="#ef4444" />
-          )}
-        </TouchableOpacity>
-      </View>
+        <View style={styles.blogActions}>
+          <TouchableOpacity
+            style={styles.actionBtn}
+            onPress={() => router.push(`/edit/${item._id}`)}
+          >
+            <Ionicons name="pencil" size={18} color="#888" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.actionBtn}
+            onPress={() => handleDelete(item._id, item.title)}
+            disabled={deleting && deletingId === item._id}
+          >
+            {deleting && deletingId === item._id ? (
+              <ActivityIndicator size="small" color="#ef4444" />
+            ) : (
+              <Ionicons name="trash-outline" size={18} color="#ef4444" />
+            )}
+          </TouchableOpacity>
+        </View>
     </View>
   );
 
@@ -185,8 +165,8 @@ export default function MyPostsScreen() {
       {/* Error */}
       {error && !loading && (
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-          <TouchableOpacity style={styles.retryBtn} onPress={() => loadMyBlogs()}>
+          <Text style={styles.errorText}>{error.message}</Text>
+          <TouchableOpacity style={styles.retryBtn} onPress={() => refetch()}>
             <Text style={styles.retryBtnText}>Retry</Text>
           </TouchableOpacity>
         </View>

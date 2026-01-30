@@ -8,32 +8,28 @@
  * - Edit profile functionality
  */
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useProfile, useMyBlogs } from "../../src/lib/hooks";
+import { useProfileQuery, useMyBlogsQuery } from "../../src/lib/queries";
 
 export default function ProfileScreen() {
   const { isSignedIn, signOut } = useAuth();
   const { user } = useUser();
-  const { profile, loading: profileLoading, loadProfile } = useProfile();
-  const { blogs, loading: blogsLoading, loadMyBlogs } = useMyBlogs();
   
-  // Computed values
-  const publishedCount = blogs.filter(b => b.status === "published").length;
-  const draftCount = blogs.filter(b => b.status === "draft").length;
-
-  // Load profile and blogs when signed in - run in parallel for speed
-  useEffect(() => {
-    if (isSignedIn) {
-      // Run both API calls in parallel instead of sequentially
-      Promise.all([loadProfile(), loadMyBlogs()]);
-    }
-  }, [isSignedIn]);
+  // TanStack Query - auto-fetches when component mounts, caches results
+  const { data: profile, isLoading: profileLoading } = useProfileQuery();
+  const { data: blogs = [], isLoading: blogsLoading } = useMyBlogsQuery();
+  
+  // Computed values with useMemo for performance
+  const { publishedCount, draftCount } = useMemo(() => ({
+    publishedCount: blogs.filter(b => b.status === "published").length,
+    draftCount: blogs.filter(b => b.status === "draft").length,
+  }), [blogs]);
 
   const handleSignOut = async () => {
     await signOut();
