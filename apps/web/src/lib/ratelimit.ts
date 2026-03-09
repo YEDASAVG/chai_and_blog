@@ -1,35 +1,49 @@
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
+// In-memory sliding window rate limiter (no external dependencies)
 
-// Create Redis client
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+interface RateLimitEntry {
+  timestamps: number[];
+}
 
-// Rate limiter for API routes
-// 10 requests per 10 seconds sliding window
-export const apiLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(10, "10 s"),
-  analytics: true,
-  prefix: "ratelimit:api",
-});
+function createRateLimiter(maxRequests: number, windowMs: number) {
+  const store = new Map<string, RateLimitEntry>();
 
-// Stricter rate limiter for uploads
-// 5 uploads per minute
-export const uploadLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(5, "1 m"),
-  analytics: true,
-  prefix: "ratelimit:upload",
-});
+  // Cleanup expired entries periodically
+  if (typeof setInterval !== "undefined") {
+    setInterval(() => {
+      const now = Date.now();
+      for (const [key, entry] of store) {
+        entry.timestamps = entry.timestamps.filter((t) => now - t < windowMs);
+        if (entry.timestamps.length === 0) store.delete(key);
+      }
+    }, 60_000).unref?.();
+  }
 
-// Rate limiter for blog creation
-// 10 blogs per hour (prevents spam)
-export const blogCreateLimiter = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(10, "1 h"),
-  analytics: true,
-  prefix: "ratelimit:blog-create",
-});
+  return {
+    limit: async (identifier: string) => {
+      const now = Date.now();
+      let entry = store.get(identifier);
+      if (!entry) {
+        entry = { timestamps: [] };
+        store.set(identifier, entry);
+      }
+
+      entry.timestamps = entry.timestamps.filter((t) => now - t < windowMs);
+
+      if (entry.timestamps.length >= maxRequests) {
+        return { success: false, remaining: 0 };
+      }
+
+      entry.timestamps.push(now);
+      return { success: true, remaining: maxRequests - entry.timestamps.length };
+    },
+  };
+}
+
+// Rate limiter for API routes - 10 requests per 10 seconds
+export const apiLimiter = createRateLimiter(10, 10_000);
+
+// Stricter rate limiter for uploads - 5 uploads per minute
+export const uploadLimiter = createRateLimiter(5, 60_000);
+
+// Rate limiter for blog creation - 10 blogs per hour
+export const blogCreateLimiter = createRateLimiter(10, 3_600_000);

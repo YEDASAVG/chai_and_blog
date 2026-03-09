@@ -72,55 +72,24 @@ export default function WritePage() {
   }, [title]);
 
   // Load draft from localStorage on mount (for work-in-progress recovery)
-  // If the stored blog is already published, clear it and start fresh
   useEffect(() => {
-    const loadDraft = async () => {
-      const draft = localStorage.getItem("blog-draft");
-      if (!draft) return;
-      
-      try {
-        const parsed = JSON.parse(draft);
-        
-        // If there's a blogId, verify it's still a draft (not published)
-        if (parsed.blogId) {
-          try {
-            const response = await fetch(`/api/blogs/${parsed.blogId}`);
-            if (response.ok) {
-              const data = await response.json();
-              // If blog is published, clear localStorage and start fresh
-              if (data.blog?.status === "published") {
-                console.log("Stored blog is published, clearing draft");
-                localStorage.removeItem("blog-draft");
-                return;
-              }
-            } else if (response.status === 404) {
-              // Blog doesn't exist anymore, clear and start fresh
-              console.log("Stored blog not found, clearing draft");
-              localStorage.removeItem("blog-draft");
-              return;
-            }
-          } catch (error) {
-            // Network error, still load the draft but without blogId to avoid conflicts
-            console.log("Failed to verify blog status, loading without blogId");
-            parsed.blogId = null;
-          }
-        }
-        
-        // Only restore if there's actual content
-        if (parsed.title || parsed.content) {
-          setTitle(parsed.title || "");
-          setContent(parsed.content || null);
-          setDescription(parsed.description || "");
-          setTags(parsed.tags || []);
-          setBlogId(parsed.blogId || null);
-        }
-      } catch {
-        // Invalid JSON, clear it
-        localStorage.removeItem("blog-draft");
-      }
-    };
+    const draft = localStorage.getItem("blog-draft");
+    if (!draft) return;
     
-    loadDraft();
+    try {
+      const parsed = JSON.parse(draft);
+      // Restore draft content if exists
+      if (parsed.title || parsed.content) {
+        setTitle(parsed.title || "");
+        setContent(parsed.content || null);
+        setDescription(parsed.description || "");
+        setTags(parsed.tags || []);
+        setBlogId(parsed.blogId || null);
+      }
+    } catch {
+      // Invalid JSON, clear it
+      localStorage.removeItem("blog-draft");
+    }
   }, []);
 
   // Save to localStorage (backup)
